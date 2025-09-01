@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-s/ale=1.0"/>
   <title>Lets Book</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -62,16 +62,6 @@
     }
     #header-image { width:120px; height:120px; border-radius:50%; object-fit:cover; border:2px solid var(--border-color); margin:0 auto 1rem; display:none; }
     
-    .logo-image-large {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%; /* Makes it a perfect circle */
-      object-fit: cover;
-      border: 2px solid var(--border-color);
-      margin: 0 auto 1rem;
-      display: none;
-    }
-
     .logo-image-small {
       height: 35px;
       width: 35px;
@@ -87,11 +77,12 @@
     }
 
     .title-container.desktop {
-      margin-bottom: 2.5rem;
+        margin-bottom: 2.5rem;
     }
 
     .title-container.mobile {
-      margin-bottom: 2rem;
+        margin-bottom: 2rem;
+        display: none;
     }
 
     .main-title {
@@ -100,13 +91,6 @@
         color: var(--accent-primary);
         text-shadow: 0 0 5px var(--accent-glow);
         animation: pulseGlow 3s ease-in-out infinite;
-    }
-    
-    .shop-name-desktop {
-      text-align: center;
-    }
-    .shop-name-mobile {
-      text-align: center;
     }
     
     .summary-item { margin-bottom:2rem; border-left:3px solid var(--border-color); padding-left:1rem; }
@@ -238,9 +222,12 @@
 
     /* --- 5. Responsive --- */
     @media (min-width: 769px) {
-        .logo-image-large {
-            display: block;
-        }
+      .title-container.desktop {
+          display: flex;
+      }
+      .title-container.mobile {
+          display: none;
+      }
     }
     @media (max-width:1200px) {
       .booking-dashboard { grid-template-columns:1fr; }
@@ -261,24 +248,19 @@
       .title-container.mobile {
           display: flex;
       }
-      .logo-image-large {
-          display: none;
-      }
     }
   </style>
 </head>
 <body>
 <div class="booking-dashboard">
   <aside class="summary-panel">
-    <img id="header-image" src="https://i.imgur.com/4tJdarN.jpeg" alt="Barber Shop Logo"/>
+    <img id="header-image" src="" alt="Barber Shop Logo"/>
     
-    <img id="header-logo-large" class="logo-image-large" src="https://i.imgur.com/4tJdarN.jpeg" alt="Shop Logo"/>
-
-    <div class="title-container desktop">
+    <div id="booking-title-container" class="title-container desktop">
         <img id="header-logo" class="logo-image-small" src="https://i.imgur.com/4tJdarN.jpeg" alt="Shop Logo"/>
-        <h2 id="shop-name-title" class="shop-name-desktop main-title">Your Appointment</h2>
+        <h2 id="shop-name-title" class="main-title">The Modern Cut</h2>
     </div>
-    
+
     <div id="summary-service-item" class="summary-item"><h4>Service</h4><p id="summary-service" class="placeholder">Select a service</p></div>
     <div id="summary-barber-item" class="summary-item"><h4>Barber</h4><p id="summary-barber" class="placeholder">Select a barber</p></div>
     <div id="summary-datetime-item" class="summary-item"><h4>Date & Time</h4><p id="summary-datetime" class="placeholder">Choose a time slot</p></div>
@@ -294,9 +276,6 @@
   </aside>
 
   <main class="steps-panel">
-    <div class="title-container mobile">
-      <h2 class="shop-name-mobile main-title">The Modern Cut</h2>
-    </div>
     <div id="loader" class="loader"></div>
 
     <section id="services-step" class="booking-step hidden">
@@ -378,10 +357,12 @@
       headerImage: document.getElementById('header-image'),
       shopNameDesktop: document.getElementById('shop-name-title'),
       shopNameMobile: document.querySelector('.shop-name-mobile'),
-      shopLogoDesktop: document.getElementById('header-logo'),
-      shopLogoDesktopLarge: document.getElementById('header-logo-large'),
+      shopLogo: document.getElementById('header-logo'),
       phoneLink: document.getElementById('phone-link'),
       emailLink: document.getElementById('email-link'),
+      bookingTitleContainer: document.getElementById('booking-title-container'),
+      mainStepsPanel: document.querySelector('.steps-panel'),
+      summaryPanel: document.querySelector('.summary-panel'),
       summary: {
         serviceItem: document.getElementById('summary-service-item'),
         service: document.getElementById('summary-service'),
@@ -632,21 +613,30 @@
         }
 
         if (appData.settings?.shopLogoURL) {
-            DOMElements.shopLogoDesktop.src = appData.settings.shopLogoURL;
-            DOMElements.shopLogoDesktopLarge.src = appData.settings.shopLogoURL;
+            DOMElements.shopLogo.src = appData.settings.shopLogoURL;
         } else if (config.shopLogoURL) {
-            DOMElements.shopLogoDesktop.src = config.shopLogoURL;
-            DOMElements.shopLogoDesktopLarge.src = config.shopLogoURL;
+            DOMElements.shopLogo.src = config.shopLogoURL;
         }
 
         DOMElements.shopNameDesktop.textContent = config.shopName;
         if (DOMElements.shopNameMobile) {
             DOMElements.shopNameMobile.textContent = config.shopName;
         }
+        
+        if (window.innerWidth <= 768) {
+            DOMElements.mainStepsPanel.prepend(DOMElements.bookingTitleContainer);
+            DOMElements.bookingTitleContainer.classList.remove('desktop');
+            DOMElements.bookingTitleContainer.classList.add('mobile');
+        } else {
+            DOMElements.summaryPanel.prepend(DOMElements.bookingTitleContainer);
+            DOMElements.bookingTitleContainer.classList.remove('mobile');
+            DOMElements.bookingTitleContainer.classList.add('desktop');
+        }
+
 
         if (appData.settings?.contactEmail) {
             DOMElements.emailLink.href = `mailto:${appData.settings.contactEmail}`;
-            DOMElements.emailLink.textContent = appData.settings.contactEmail;
+            DOMEElements.emailLink.textContent = appData.settings.contactEmail;
         } else if (config.contactEmail) {
             DOMElements.emailLink.href = `mailto:${config.contactEmail}`;
             DOMElements.emailLink.textContent = config.contactEmail;
