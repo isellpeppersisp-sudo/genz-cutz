@@ -1,0 +1,4 @@
+[build]
+  command = "npm run build" # The command to build your site
+  publish = "build/"        # The folder that contains the final HTML/CSS/JS
+  functions = "netlify/functions/"
