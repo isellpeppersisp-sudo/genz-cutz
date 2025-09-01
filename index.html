@@ -172,6 +172,9 @@
       .steps-panel { padding:2rem 1rem; }
       .btn-back { position:static; margin-bottom:1.5rem; display:inline-block; }
       #customer-form .form-grid { grid-template-columns:1fr; }
+      .summary-panel {
+        display: none; /* New CSS rule to hide the summary panel on mobile */
+      }
     }
   </style>
 </head>
@@ -433,7 +436,7 @@
 
       if (!hours || hours.IsClosed) {
         DOMElements.timeSlotMessage.textContent = `Sorry, ${bookingState.selectedBarber} is unavailable on this day.`;
-        DOMElements.timeSlotMessage.classList.remove('hidden');
+        DOMEElements.timeSlotMessage.classList.remove('hidden');
         return;
       }
 
