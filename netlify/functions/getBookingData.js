@@ -8,7 +8,7 @@ export async function handler() {
   if (!cachedData || now - lastFetchTime > CACHE_DURATION_MS) {
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbzmKY0ykHc62Xu-lXZu0Ju0qzfHp4eO7BsxdF7oyJKZWM97sieLzh6WgdeR_D_44AMy/exec"
+        "https://script.google.com/macros/s/AKfycbw6-_n2BEbRLAxitRIyWbz80bEimgFg36D7vsGh717E2Z1Q-uVE0j0Q3dbM7Q4FGOhr/exec"
       );
       if (!response.ok) throw new Error("Apps Script fetch failed");
       cachedData = await response.json();
