@@ -56,7 +56,17 @@
       border-right:1px solid var(--border-color); display:flex; flex-direction:column;
     }
     #header-image { width:120px; height:120px; border-radius:50%; object-fit:cover; border:2px solid var(--border-color); margin:0 auto 1rem; display:none; }
-    .summary-panel h2 { text-align:center; font-size:1.8rem; margin-bottom:2.5rem; }
+    .shop-name-desktop {
+        text-align: center;
+        font-size: 1.8rem;
+        margin-bottom: 2.5rem;
+    }
+    .shop-name-mobile {
+        text-align: center;
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        display: none;
+    }
     .summary-item { margin-bottom:2rem; border-left:3px solid var(--border-color); padding-left:1rem; }
     .summary-item h4 { margin-bottom:0.4rem; color:var(--text-secondary); }
     .summary-item p.placeholder { color:#666; }
@@ -173,7 +183,13 @@
       .btn-back { position:static; margin-bottom:1.5rem; display:inline-block; }
       #customer-form .form-grid { grid-template-columns:1fr; }
       .summary-panel {
-        display: none; /* New CSS rule to hide the summary panel on mobile */
+        display: none;
+      }
+      .shop-name-desktop {
+          display: none;
+      }
+      .shop-name-mobile {
+          display: block;
       }
     }
   </style>
@@ -182,7 +198,7 @@
 <div class="booking-dashboard">
   <aside class="summary-panel">
     <img id="header-image" src="" alt="Barber Shop Logo"/>
-    <h2 id="shop-name-title">Your Appointment</h2>
+    <h2 id="shop-name-title" class="shop-name-desktop">Your Appointment</h2>
     <div id="summary-service-item" class="summary-item"><h4>Service</h4><p id="summary-service" class="placeholder">Select a service</p></div>
     <div id="summary-barber-item" class="summary-item"><h4>Barber</h4><p id="summary-barber" class="placeholder">Select a barber</p></div>
     <div id="summary-datetime-item" class="summary-item"><h4>Date & Time</h4><p id="summary-datetime" class="placeholder">Choose a time slot</p></div>
@@ -191,6 +207,7 @@
   </aside>
 
   <main class="steps-panel">
+    <h2 class="shop-name-mobile hidden">The Modern Cut</h2>
     <div id="loader" class="loader"></div>
 
     <section id="services-step" class="booking-step hidden">
@@ -436,7 +453,7 @@
 
       if (!hours || hours.IsClosed) {
         DOMElements.timeSlotMessage.textContent = `Sorry, ${bookingState.selectedBarber} is unavailable on this day.`;
-        DOMEElements.timeSlotMessage.classList.remove('hidden');
+        DOMElements.timeSlotMessage.classList.remove('hidden');
         return;
       }
 
