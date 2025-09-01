@@ -1,6 +1,6 @@
 let cachedData = null;
 let lastFetchTime = 0;
-const CACHE_DURATION_MS = 1 * 60 * 1000; // 5 minutes cache
+const CACHE_DURATION_MS = 5 * 60 * 1000; // 5 minutes cache
 
 export async function handler() {
   const now = Date.now();
