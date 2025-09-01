@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-s/ale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lets Book</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -60,31 +60,24 @@
       background-color: var(--background-panel); padding:2.5rem; position:sticky; top:0; height:100vh;
       border-right:1px solid var(--border-color); display:flex; flex-direction:column;
     }
-    #header-image { width:120px; height:120px; border-radius:50%; object-fit:cover; border:2px solid var(--border-color); margin:0 auto 1rem; display:none; }
-    
-    .logo-image-small {
-      height: 35px;
-      width: 35px;
-      object-fit: contain;
-      border-radius: 50%;
-    }
-    
-    .title-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-    }
 
-    .title-container.desktop {
-        margin-bottom: 2.5rem;
-    }
-
-    .title-container.mobile {
+    .logo-and-title-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
         margin-bottom: 2rem;
-        display: none;
     }
 
+    #main-logo {
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
+        border-radius: 50%;
+        border: 2px solid var(--border-color);
+        margin-bottom: 1rem;
+    }
+    
     .main-title {
         font-size: 2.2rem;
         font-weight: 700;
@@ -215,25 +208,42 @@
         color: var(--text-secondary);
         text-decoration: none;
         transition: color 0.3s;
+        display: block;
     }
     #contact-info a:hover {
+        color: var(--accent-primary);
+    }
+    
+    .contact-info-section {
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border-color);
+        text-align: center;
+    }
+    .contact-info-section h4 {
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+    .contact-info-section a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color 0.3s;
+        display: block;
+    }
+    .contact-info-section a:hover {
         color: var(--accent-primary);
     }
 
     /* --- 5. Responsive --- */
     @media (min-width: 769px) {
-      .title-container.desktop {
-          display: flex;
-      }
-      .title-container.mobile {
-          display: none;
-      }
+        .logo-and-title-container {
+            margin-bottom: 2.5rem;
+        }
     }
     @media (max-width:1200px) {
       .booking-dashboard { grid-template-columns:1fr; }
       .summary-panel { position:relative; height:auto; border-right:none; border-bottom:1px solid var(--border-color); }
       .steps-panel { padding:2.5rem 2rem; }
-      .title-container { flex-direction: column; }
     }
     @media (max-width:768px) {
       .steps-panel { padding:2rem 1rem; }
@@ -242,22 +252,15 @@
       .summary-panel {
         display: none;
       }
-      .title-container.desktop {
-          display: none;
-      }
-      .title-container.mobile {
-          display: flex;
-      }
     }
   </style>
 </head>
 <body>
 <div class="booking-dashboard">
   <aside class="summary-panel">
-    <img id="header-image" src="" alt="Barber Shop Logo"/>
     
-    <div id="booking-title-container" class="title-container desktop">
-        <img id="header-logo" class="logo-image-small" src="https://i.imgur.com/4tJdarN.jpeg" alt="Shop Logo"/>
+    <div class="logo-and-title-container">
+        <img id="main-logo" src="https://i.imgur.com/4tJdarN.jpeg" alt="Shop Logo"/>
         <h2 id="shop-name-title" class="main-title">The Modern Cut</h2>
     </div>
 
@@ -266,7 +269,7 @@
     <div id="summary-datetime-item" class="summary-item"><h4>Date & Time</h4><p id="summary-datetime" class="placeholder">Choose a time slot</p></div>
     <div id="summary-price-item" class="summary-item"><h4>Price</h4><p id="summary-price">$0.00</p></div>
     
-    <div id="contact-info">
+    <div id="contact-info" class="contact-info-section">
         <h4>Contact Us</h4>
         <p><a id="phone-link" href="tel:"></a></p>
         <p><a id="email-link" href="mailto:"></a></p>
@@ -332,20 +335,25 @@
       <p>An email confirmation has been sent to you. We look forward to seeing you!</p>
       <div id="add-to-calendar-links" class="calendar-links"></div>
     </section>
+    
+    <div id="contact-info-mobile" class="contact-info-section hidden">
+        <h4>Contact Us</h4>
+        <p><a id="phone-link-mobile" href="tel:"></a></p>
+        <p><a id="email-link-mobile" href="mailto:"></a></p>
+    </div>
+
   </main>
 </div>
 
 <script>
   const config = {
     shopName: "The Modern Cut",
-    // URLs for our two Netlify functions
+    shopLogoURL: "https://i.imgur.com/4tJdarN.jpeg",
+    contactEmail: "themoderncut@gmail.com",
+    contactPhone: "18683333333",
     getDataURL: "/.netlify/functions/getBookingData",
-    submitDataURL: "/.netlify/functions/submitBooking",
-    
-    // Add your contact info here
-    contactEmail: "info@yourdomain.com",
-    contactPhone: "+1 (555) 123-4567"
-	};
+    submitDataURL: "/.netlify/functions/submitBooking"
+  };
 
   document.addEventListener('DOMContentLoaded', () => {
     let appData = {};
@@ -354,15 +362,10 @@
     const DOMElements = {
       loader: document.getElementById('loader'),
       errorContainer: document.getElementById('error-container'),
-      headerImage: document.getElementById('header-image'),
-      shopNameDesktop: document.getElementById('shop-name-title'),
-      shopNameMobile: document.querySelector('.shop-name-mobile'),
-      shopLogo: document.getElementById('header-logo'),
-      phoneLink: document.getElementById('phone-link'),
-      emailLink: document.getElementById('email-link'),
-      bookingTitleContainer: document.getElementById('booking-title-container'),
-      mainStepsPanel: document.querySelector('.steps-panel'),
       summaryPanel: document.querySelector('.summary-panel'),
+      stepsPanel: document.querySelector('.steps-panel'),
+      mainLogo: document.getElementById('main-logo'),
+      shopNameTitle: document.getElementById('shop-name-title'),
       summary: {
         serviceItem: document.getElementById('summary-service-item'),
         service: document.getElementById('summary-service'),
@@ -390,7 +393,13 @@
       customerForm: document.getElementById('customer-form'),
       submitBookingBtn: document.getElementById('submit-booking'),
       calendarLinks: document.getElementById('add-to-calendar-links'),
-      backButtons: document.querySelectorAll('.btn-back')
+      backButtons: document.querySelectorAll('.btn-back'),
+      contactInfoDesktop: document.getElementById('contact-info'),
+      phoneLinkDesktop: document.getElementById('phone-link'),
+      emailLinkDesktop: document.getElementById('email-link'),
+      contactInfoMobile: document.getElementById('contact-info-mobile'),
+      phoneLinkMobile: document.getElementById('phone-link-mobile'),
+      emailLinkMobile: document.getElementById('email-link-mobile')
     };
 
     const showError = (message) => {
@@ -429,7 +438,7 @@
       service.textContent = 'Select a service'; service.classList.add('placeholder'); serviceItem.classList.remove('active');
       barber.textContent = 'Select a barber'; barber.classList.add('placeholder'); barberItem.classList.remove('active');
       datetime.textContent = 'Choose a time slot'; datetime.classList.add('placeholder'); datetimeItem.classList.remove('active');
-      price.textContent = '$0.00';
+      price.textContent = `$0.00`;
 
       if (bookingState.selectedService) {
         service.textContent = bookingState.selectedService.Name; service.classList.remove('placeholder'); serviceItem.classList.add('active');
@@ -606,48 +615,33 @@
         appData = await response.json();
         if (appData.error) throw new Error(appData.error);
         
-        // Load settings and data from the API response
+        // Update logo and title
+        DOMElements.mainLogo.src = config.shopLogoURL;
+        DOMElements.shopNameTitle.textContent = config.shopName;
+
+        // Update contact info from config
+        DOMElements.emailLinkDesktop.href = `mailto:${config.contactEmail}`;
+        DOMElements.emailLinkDesktop.textContent = config.contactEmail;
+        DOMElements.phoneLinkDesktop.href = `tel:${config.contactPhone}`;
+        DOMElements.phoneLinkDesktop.textContent = config.contactPhone;
+
+        DOMElements.emailLinkMobile.href = `mailto:${config.contactEmail}`;
+        DOMElements.emailLinkMobile.textContent = config.contactEmail;
+        DOMElements.phoneLinkMobile.href = `tel:${config.contactPhone}`;
+        DOMElements.phoneLinkMobile.textContent = config.contactPhone;
+
+        // Handle visibility for desktop vs mobile layout
+        if (window.innerWidth <= 768) {
+            DOMElements.summaryPanel.classList.add('hidden');
+            DOMElements.contactInfoMobile.classList.remove('hidden');
+        } else {
+            DOMElements.summaryPanel.classList.remove('hidden');
+            DOMElements.contactInfoMobile.classList.add('hidden');
+        }
+
         if (appData.settings?.backgroundimageurl) {
           DOMElements.headerImage.src = appData.settings.backgroundimageurl;
           DOMElements.headerImage.style.display = 'block';
-        }
-
-        if (appData.settings?.shopLogoURL) {
-            DOMElements.shopLogo.src = appData.settings.shopLogoURL;
-        } else if (config.shopLogoURL) {
-            DOMElements.shopLogo.src = config.shopLogoURL;
-        }
-
-        DOMElements.shopNameDesktop.textContent = config.shopName;
-        if (DOMElements.shopNameMobile) {
-            DOMElements.shopNameMobile.textContent = config.shopName;
-        }
-        
-        if (window.innerWidth <= 768) {
-            DOMElements.mainStepsPanel.prepend(DOMElements.bookingTitleContainer);
-            DOMElements.bookingTitleContainer.classList.remove('desktop');
-            DOMElements.bookingTitleContainer.classList.add('mobile');
-        } else {
-            DOMElements.summaryPanel.prepend(DOMElements.bookingTitleContainer);
-            DOMElements.bookingTitleContainer.classList.remove('mobile');
-            DOMElements.bookingTitleContainer.classList.add('desktop');
-        }
-
-
-        if (appData.settings?.contactEmail) {
-            DOMElements.emailLink.href = `mailto:${appData.settings.contactEmail}`;
-            DOMEElements.emailLink.textContent = appData.settings.contactEmail;
-        } else if (config.contactEmail) {
-            DOMElements.emailLink.href = `mailto:${config.contactEmail}`;
-            DOMElements.emailLink.textContent = config.contactEmail;
-        }
-
-        if (appData.settings?.contactPhone) {
-            DOMElements.phoneLink.href = `tel:${appData.settings.contactPhone}`;
-            DOMElements.phoneLink.textContent = appData.settings.contactPhone;
-        } else if (config.contactPhone) {
-            DOMElements.phoneLink.href = `tel:${config.contactPhone}`;
-            DOMElements.phoneLink.textContent = config.contactPhone;
         }
 
         appData.bookings = (appData.bookings || []).map(b => ({
