@@ -62,6 +62,38 @@
     }
     #header-image { width:120px; height:120px; border-radius:50%; object-fit:cover; border:2px solid var(--border-color); margin:0 auto 1rem; display:none; }
     
+    .logo-image-large {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%; /* Makes it a perfect circle */
+      object-fit: cover;
+      border: 2px solid var(--border-color);
+      margin: 0 auto 1rem;
+      display: none;
+    }
+
+    .logo-image-small {
+      height: 35px;
+      width: 35px;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+    
+    .title-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .title-container.desktop {
+      margin-bottom: 2.5rem;
+    }
+
+    .title-container.mobile {
+      margin-bottom: 2rem;
+    }
+
     .main-title {
         font-size: 2.2rem;
         font-weight: 700;
@@ -71,15 +103,12 @@
     }
     
     .shop-name-desktop {
-        text-align: center;
-        margin-bottom: 2.5rem;
+      text-align: center;
     }
     .shop-name-mobile {
-        text-align: center;
-        margin-bottom: 2rem;
-        display: none;
+      text-align: center;
     }
-
+    
     .summary-item { margin-bottom:2rem; border-left:3px solid var(--border-color); padding-left:1rem; }
     .summary-item h4 { margin-bottom:0.4rem; color:var(--text-secondary); }
     .summary-item p.placeholder { color:#666; }
@@ -185,11 +214,39 @@
     .calendar-links a.google { background:#4285F4; }
     .calendar-links a.outlook { background:#0072C6; }
 
+    #contact-info {
+        margin-top: auto;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border-color);
+        text-align: center;
+    }
+    #contact-info h4 {
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+    #contact-info p {
+        font-size: 0.9rem;
+    }
+    #contact-info a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+    #contact-info a:hover {
+        color: var(--accent-primary);
+    }
+
     /* --- 5. Responsive --- */
+    @media (min-width: 769px) {
+        .logo-image-large {
+            display: block;
+        }
+    }
     @media (max-width:1200px) {
       .booking-dashboard { grid-template-columns:1fr; }
       .summary-panel { position:relative; height:auto; border-right:none; border-bottom:1px solid var(--border-color); }
       .steps-panel { padding:2.5rem 2rem; }
+      .title-container { flex-direction: column; }
     }
     @media (max-width:768px) {
       .steps-panel { padding:2rem 1rem; }
@@ -198,11 +255,14 @@
       .summary-panel {
         display: none;
       }
-      .shop-name-desktop {
+      .title-container.desktop {
           display: none;
       }
-      .shop-name-mobile {
-          display: block;
+      .title-container.mobile {
+          display: flex;
+      }
+      .logo-image-large {
+          display: none;
       }
     }
   </style>
@@ -210,17 +270,33 @@
 <body>
 <div class="booking-dashboard">
   <aside class="summary-panel">
-    <img id="header-image" src="" alt="Barber Shop Logo"/>
-    <h2 id="shop-name-title" class="shop-name-desktop main-title">Your Appointment</h2>
+    <img id="header-image" src="https://i.imgur.com/4tJdarN.jpeg" alt="Barber Shop Logo"/>
+    
+    <img id="header-logo-large" class="logo-image-large" src="https://i.imgur.com/4tJdarN.jpeg" alt="Shop Logo"/>
+
+    <div class="title-container desktop">
+        <img id="header-logo" class="logo-image-small" src="https://i.imgur.com/4tJdarN.jpeg" alt="Shop Logo"/>
+        <h2 id="shop-name-title" class="shop-name-desktop main-title">Your Appointment</h2>
+    </div>
+    
     <div id="summary-service-item" class="summary-item"><h4>Service</h4><p id="summary-service" class="placeholder">Select a service</p></div>
     <div id="summary-barber-item" class="summary-item"><h4>Barber</h4><p id="summary-barber" class="placeholder">Select a barber</p></div>
     <div id="summary-datetime-item" class="summary-item"><h4>Date & Time</h4><p id="summary-datetime" class="placeholder">Choose a time slot</p></div>
     <div id="summary-price-item" class="summary-item"><h4>Price</h4><p id="summary-price">$0.00</p></div>
+    
+    <div id="contact-info">
+        <h4>Contact Us</h4>
+        <p><a id="phone-link" href="tel:"></a></p>
+        <p><a id="email-link" href="mailto:"></a></p>
+    </div>
+    
     <div id="error-container" class="error-message hidden"></div>
   </aside>
 
   <main class="steps-panel">
-    <h2 class="shop-name-mobile main-title">The Modern Cut</h2>
+    <div class="title-container mobile">
+      <h2 class="shop-name-mobile main-title">The Modern Cut</h2>
+    </div>
     <div id="loader" class="loader"></div>
 
     <section id="services-step" class="booking-step hidden">
@@ -285,7 +361,11 @@
     shopName: "The Modern Cut",
     // URLs for our two Netlify functions
     getDataURL: "/.netlify/functions/getBookingData",
-    submitDataURL: "/.netlify/functions/submitBooking"
+    submitDataURL: "/.netlify/functions/submitBooking",
+    
+    // Add your contact info here
+    contactEmail: "info@yourdomain.com",
+    contactPhone: "+1 (555) 123-4567"
 	};
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -298,6 +378,10 @@
       headerImage: document.getElementById('header-image'),
       shopNameDesktop: document.getElementById('shop-name-title'),
       shopNameMobile: document.querySelector('.shop-name-mobile'),
+      shopLogoDesktop: document.getElementById('header-logo'),
+      shopLogoDesktopLarge: document.getElementById('header-logo-large'),
+      phoneLink: document.getElementById('phone-link'),
+      emailLink: document.getElementById('email-link'),
       summary: {
         serviceItem: document.getElementById('summary-service-item'),
         service: document.getElementById('summary-service'),
@@ -535,20 +619,45 @@
     };
 
     const init = async () => {
-      DOMElements.shopNameDesktop.textContent = config.shopName;
-      if (DOMElements.shopNameMobile) {
-          DOMElements.shopNameMobile.textContent = config.shopName;
-      }
-      
       try {
         const response = await fetch(config.getDataURL);
         if (!response.ok) throw new Error(`Network response was not ok`);
         appData = await response.json();
         if (appData.error) throw new Error(appData.error);
-
+        
+        // Load settings and data from the API response
         if (appData.settings?.backgroundimageurl) {
           DOMElements.headerImage.src = appData.settings.backgroundimageurl;
           DOMElements.headerImage.style.display = 'block';
+        }
+
+        if (appData.settings?.shopLogoURL) {
+            DOMElements.shopLogoDesktop.src = appData.settings.shopLogoURL;
+            DOMElements.shopLogoDesktopLarge.src = appData.settings.shopLogoURL;
+        } else if (config.shopLogoURL) {
+            DOMElements.shopLogoDesktop.src = config.shopLogoURL;
+            DOMElements.shopLogoDesktopLarge.src = config.shopLogoURL;
+        }
+
+        DOMElements.shopNameDesktop.textContent = config.shopName;
+        if (DOMElements.shopNameMobile) {
+            DOMElements.shopNameMobile.textContent = config.shopName;
+        }
+
+        if (appData.settings?.contactEmail) {
+            DOMElements.emailLink.href = `mailto:${appData.settings.contactEmail}`;
+            DOMElements.emailLink.textContent = appData.settings.contactEmail;
+        } else if (config.contactEmail) {
+            DOMElements.emailLink.href = `mailto:${config.contactEmail}`;
+            DOMElements.emailLink.textContent = config.contactEmail;
+        }
+
+        if (appData.settings?.contactPhone) {
+            DOMElements.phoneLink.href = `tel:${appData.settings.contactPhone}`;
+            DOMElements.phoneLink.textContent = appData.settings.contactPhone;
+        } else if (config.contactPhone) {
+            DOMElements.phoneLink.href = `tel:${config.contactPhone}`;
+            DOMElements.phoneLink.textContent = config.contactPhone;
         }
 
         appData.bookings = (appData.bookings || []).map(b => ({
