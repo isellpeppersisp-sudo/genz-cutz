@@ -1,6 +1,3 @@
-// netlify/functions/getBookingData.js
-import fetch from "node-fetch";
-
 let cachedData = null;
 let lastFetchTime = 0;
 const CACHE_DURATION_MS = 5 * 60 * 1000; // 5 minutes cache
