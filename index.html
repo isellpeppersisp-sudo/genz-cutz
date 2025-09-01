@@ -28,6 +28,11 @@
     @keyframes fadeIn { from {opacity:0; transform:translateY(15px);} to {opacity:1; transform:translateY(0);} }
     @keyframes spin { to { transform: rotate(360deg); } }
     @keyframes animatedGradient { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+    @keyframes pulseGlow {
+        0% { text-shadow: 0 0 5px var(--accent-glow); }
+        50% { text-shadow: 0 0 10px var(--accent-glow), 0 0 15px var(--accent-glow); }
+        100% { text-shadow: 0 0 5px var(--accent-glow); }
+    }
     body {
       font-family: var(--font-family);
       color: var(--text-primary);
@@ -56,17 +61,25 @@
       border-right:1px solid var(--border-color); display:flex; flex-direction:column;
     }
     #header-image { width:120px; height:120px; border-radius:50%; object-fit:cover; border:2px solid var(--border-color); margin:0 auto 1rem; display:none; }
+    
+    .main-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--accent-primary);
+        text-shadow: 0 0 5px var(--accent-glow);
+        animation: pulseGlow 3s ease-in-out infinite;
+    }
+    
     .shop-name-desktop {
         text-align: center;
-        font-size: 1.8rem;
         margin-bottom: 2.5rem;
     }
     .shop-name-mobile {
         text-align: center;
-        font-size: 1.8rem;
         margin-bottom: 2rem;
         display: none;
     }
+
     .summary-item { margin-bottom:2rem; border-left:3px solid var(--border-color); padding-left:1rem; }
     .summary-item h4 { margin-bottom:0.4rem; color:var(--text-secondary); }
     .summary-item p.placeholder { color:#666; }
@@ -198,7 +211,7 @@
 <div class="booking-dashboard">
   <aside class="summary-panel">
     <img id="header-image" src="" alt="Barber Shop Logo"/>
-    <h2 id="shop-name-title" class="shop-name-desktop">Your Appointment</h2>
+    <h2 id="shop-name-title" class="shop-name-desktop main-title">Your Appointment</h2>
     <div id="summary-service-item" class="summary-item"><h4>Service</h4><p id="summary-service" class="placeholder">Select a service</p></div>
     <div id="summary-barber-item" class="summary-item"><h4>Barber</h4><p id="summary-barber" class="placeholder">Select a barber</p></div>
     <div id="summary-datetime-item" class="summary-item"><h4>Date & Time</h4><p id="summary-datetime" class="placeholder">Choose a time slot</p></div>
@@ -207,7 +220,7 @@
   </aside>
 
   <main class="steps-panel">
-    <h2 class="shop-name-mobile">The Modern Cut</h2>
+    <h2 class="shop-name-mobile main-title">The Modern Cut</h2>
     <div id="loader" class="loader"></div>
 
     <section id="services-step" class="booking-step hidden">
