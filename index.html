@@ -110,14 +110,11 @@
     .selectable-card { background:var(--background-card); border-radius:16px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,.3); transition: transform .3s, box-shadow .3s, border-color .3s; border:2px solid var(--background-card); cursor:pointer; display:flex; flex-direction:column; }
     .selectable-card:hover { transform: translateY(-8px); box-shadow:0 0 25px var(--accent-glow); border-color:var(--accent-primary); }
     
-    /* --- FINAL FIX FOR SERVICE IMAGES --- */
     .card-image {
       width: 100%;
       height: 180px;
       border-bottom: 1px solid var(--border-color);
-      /* Use a background color that matches the cards */
       background-color: var(--background-secondary); 
-      /* This ensures the WHOLE image is visible, scaled down to fit */
       background-size: contain; 
       background-position: center;
       background-repeat: no-repeat;
@@ -129,13 +126,11 @@
     .service-details { display:flex; justify-content:space-between; align-items:center; margin-top:1.5rem; font-weight:600; }
     .service-details .price { font-size:1.3rem; color:var(--accent-primary); }
 
-    /* Centered content for the barber card */
     .barber-card .card-content {
         justify-content: center;
         text-align: center;
         min-height: 80px;
     }
-
 
     /* Time Slot UI */
     .date-selector { display:flex; justify-content:space-between; align-items:center; background:var(--background-secondary); padding:.75rem; border-radius:8px; margin-bottom:2rem; }
@@ -255,8 +250,9 @@
 <script>
   const config = {
     shopName: "The Modern Cut",
-    // Keep your working Apps Script web app URL here:
-    scriptURL: "/.netlify/functions/getBookingData"
+    // URLs for our two Netlify functions
+    getDataURL: "/.netlify/functions/getBookingData",
+    submitDataURL: "/.netlify/functions/submitBooking"
 	};
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -387,7 +383,6 @@
       document.querySelector(`.category-tab[data-category="${category}"]`).classList.add('active');
       DOMElements.serviceList.innerHTML = categories[category].map(service => `
         <div class="selectable-card service-card">
-          ${/* --- FINAL FIX FOR SERVICE IMAGES (JAVASCRIPT) --- */ ''}
           ${service.ImageURL ? `<div class="card-image" style="background-image: url('${service.ImageURL}')"></div>` : ''}
           <div class="card-content">
             <h3>${service.Name}</h3>
@@ -404,7 +399,6 @@
     };
 
     const renderBarbers = (barbers) => {
-      // NOTE: If you add images to barbers, use the same div/style method as in renderServices
       DOMElements.barberList.innerHTML = barbers.map(barber => `
         <div class="selectable-card barber-card">
           <div class="card-content"><h3>${barber}</h3></div>
@@ -509,7 +503,7 @@
     const init = async () => {
       DOMElements.shopNameTitle.textContent = config.shopName;
       try {
-        const response = await fetch(config.scriptURL);
+        const response = await fetch(config.getDataURL);
         if (!response.ok) throw new Error(`Network response was not ok`);
         appData = await response.json();
         if (appData.error) throw new Error(appData.error);
@@ -573,7 +567,7 @@
       };
 
       try {
-        const response = await fetch(config.scriptURL, { method: 'POST', body: JSON.stringify(bookingDetails) });
+        const response = await fetch(config.submitDataURL, { method: 'POST', body: JSON.stringify(bookingDetails) });
         if (!response.ok) throw new Error(`Server error: ${response.statusText}`);
 
         const result = await response.json();
