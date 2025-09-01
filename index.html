@@ -54,30 +54,31 @@
       margin: 5rem auto; /* Centers the loader */
     }
 
-    /* --- 2. LAYOUT --- */
-    .booking-dashboard { display:grid; grid-template-columns: 380px 1fr; min-height:100vh; }
-    .summary-panel {
-      background-color: var(--background-panel); padding:2.5rem; position:sticky; top:0; height:100vh;
-      border-right:1px solid var(--border-color); display:flex; flex-direction:column;
+    /* --- Universal Header --- */
+    .universal-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+      background-color: var(--background-panel);
+      border-bottom: 1px solid var(--border-color);
     }
-
-    .logo-and-title-container {
+    .logo-container {
+        margin-bottom: 1rem;
+    }
+    #main-logo {
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+        border-radius: 50%;
+        border: 2px solid var(--border-color);
+    }
+    .title-and-contact-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        margin-bottom: 2rem;
     }
-
-    #main-logo {
-        width: 150px;
-        height: 150px;
-        object-fit: contain;
-        border-radius: 50%;
-        border: 2px solid var(--border-color);
-        margin-bottom: 1rem;
-    }
-    
     .main-title {
         font-size: 2.2rem;
         font-weight: 700;
@@ -85,7 +86,27 @@
         text-shadow: 0 0 5px var(--accent-glow);
         animation: pulseGlow 3s ease-in-out infinite;
     }
-    
+    #contact-info {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    #contact-info a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+    #contact-info a:hover {
+        color: var(--accent-primary);
+    }
+
+    /* --- 2. LAYOUT --- */
+    .booking-dashboard { display:grid; grid-template-columns: 380px 1fr; min-height:100vh; }
+    .summary-panel {
+      background-color: var(--background-panel); padding:2.5rem; position:sticky; top:0; height:100vh;
+      border-right:1px solid var(--border-color); display:flex; flex-direction:column;
+    }
     .summary-item { margin-bottom:2rem; border-left:3px solid var(--border-color); padding-left:1rem; }
     .summary-item h4 { margin-bottom:0.4rem; color:var(--text-secondary); }
     .summary-item p.placeholder { color:#666; }
@@ -191,53 +212,23 @@
     .calendar-links a.google { background:#4285F4; }
     .calendar-links a.outlook { background:#0072C6; }
 
-    #contact-info {
-        margin-top: auto;
-        padding-top: 1.5rem;
-        border-top: 1px solid var(--border-color);
-        text-align: center;
-    }
-    #contact-info h4 {
-        color: var(--text-primary);
-        margin-bottom: 0.5rem;
-    }
-    #contact-info p {
-        font-size: 0.9rem;
-    }
-    #contact-info a {
-        color: var(--text-secondary);
-        text-decoration: none;
-        transition: color 0.3s;
-        display: block;
-    }
-    #contact-info a:hover {
-        color: var(--accent-primary);
-    }
-    
-    .contact-info-section {
-        margin-top: 2rem;
-        padding-top: 1.5rem;
-        border-top: 1px solid var(--border-color);
-        text-align: center;
-    }
-    .contact-info-section h4 {
-        color: var(--text-primary);
-        margin-bottom: 0.5rem;
-    }
-    .contact-info-section a {
-        color: var(--text-secondary);
-        text-decoration: none;
-        transition: color 0.3s;
-        display: block;
-    }
-    .contact-info-section a:hover {
-        color: var(--accent-primary);
-    }
-
     /* --- 5. Responsive --- */
     @media (min-width: 769px) {
-        .logo-and-title-container {
-            margin-bottom: 2.5rem;
+        .universal-header {
+            flex-direction: row;
+            justify-content: center;
+            gap: 4rem;
+        }
+        .title-and-contact-container {
+            align-items: flex-start;
+            text-align: left;
+        }
+        #contact-info {
+            flex-direction: row;
+            gap: 1.5rem;
+        }
+        .summary-panel {
+            display: flex;
         }
     }
     @media (max-width:1200px) {
@@ -246,9 +237,6 @@
       .steps-panel { padding:2.5rem 2rem; }
     }
     @media (max-width:768px) {
-      .steps-panel { padding:2rem 1rem; }
-      .btn-back { position:static; margin-bottom:1.5rem; display:inline-block; }
-      #customer-form .form-grid { grid-template-columns:1fr; }
       .summary-panel {
         display: none;
       }
@@ -256,25 +244,24 @@
   </style>
 </head>
 <body>
+    <header class="universal-header">
+        <div class="logo-container">
+            <img id="main-logo" src="https://i.imgur.com/4tJdarN.jpeg" alt="Shop Logo"/>
+        </div>
+        <div class="title-and-contact-container">
+            <h2 id="shop-name-title" class="main-title">The Modern Cut</h2>
+            <div id="contact-info">
+                <a id="phone-link" href="tel:18683333333">1 (868) 333-3333</a>
+                <a id="email-link" href="mailto:themoderncut@gmail.com">themoderncut@gmail.com</a>
+            </div>
+        </div>
+    </header>
 <div class="booking-dashboard">
   <aside class="summary-panel">
-    
-    <div class="logo-and-title-container">
-        <img id="main-logo" src="https://i.imgur.com/4tJdarN.jpeg" alt="Shop Logo"/>
-        <h2 id="shop-name-title" class="main-title">The Modern Cut</h2>
-    </div>
-
     <div id="summary-service-item" class="summary-item"><h4>Service</h4><p id="summary-service" class="placeholder">Select a service</p></div>
     <div id="summary-barber-item" class="summary-item"><h4>Barber</h4><p id="summary-barber" class="placeholder">Select a barber</p></div>
     <div id="summary-datetime-item" class="summary-item"><h4>Date & Time</h4><p id="summary-datetime" class="placeholder">Choose a time slot</p></div>
     <div id="summary-price-item" class="summary-item"><h4>Price</h4><p id="summary-price">$0.00</p></div>
-    
-    <div id="contact-info" class="contact-info-section">
-        <h4>Contact Us</h4>
-        <p><a id="phone-link" href="tel:"></a></p>
-        <p><a id="email-link" href="mailto:"></a></p>
-    </div>
-    
     <div id="error-container" class="error-message hidden"></div>
   </aside>
 
@@ -335,13 +322,6 @@
       <p>An email confirmation has been sent to you. We look forward to seeing you!</p>
       <div id="add-to-calendar-links" class="calendar-links"></div>
     </section>
-    
-    <div id="contact-info-mobile" class="contact-info-section hidden">
-        <h4>Contact Us</h4>
-        <p><a id="phone-link-mobile" href="tel:"></a></p>
-        <p><a id="email-link-mobile" href="mailto:"></a></p>
-    </div>
-
   </main>
 </div>
 
@@ -366,6 +346,8 @@
       stepsPanel: document.querySelector('.steps-panel'),
       mainLogo: document.getElementById('main-logo'),
       shopNameTitle: document.getElementById('shop-name-title'),
+      phoneLink: document.getElementById('phone-link'),
+      emailLink: document.getElementById('email-link'),
       summary: {
         serviceItem: document.getElementById('summary-service-item'),
         service: document.getElementById('summary-service'),
@@ -393,13 +375,7 @@
       customerForm: document.getElementById('customer-form'),
       submitBookingBtn: document.getElementById('submit-booking'),
       calendarLinks: document.getElementById('add-to-calendar-links'),
-      backButtons: document.querySelectorAll('.btn-back'),
-      contactInfoDesktop: document.getElementById('contact-info'),
-      phoneLinkDesktop: document.getElementById('phone-link'),
-      emailLinkDesktop: document.getElementById('email-link'),
-      contactInfoMobile: document.getElementById('contact-info-mobile'),
-      phoneLinkMobile: document.getElementById('phone-link-mobile'),
-      emailLinkMobile: document.getElementById('email-link-mobile')
+      backButtons: document.querySelectorAll('.btn-back')
     };
 
     const showError = (message) => {
@@ -615,30 +591,6 @@
         appData = await response.json();
         if (appData.error) throw new Error(appData.error);
         
-        // Update logo and title
-        DOMElements.mainLogo.src = config.shopLogoURL;
-        DOMElements.shopNameTitle.textContent = config.shopName;
-
-        // Update contact info from config
-        DOMElements.emailLinkDesktop.href = `mailto:${config.contactEmail}`;
-        DOMElements.emailLinkDesktop.textContent = config.contactEmail;
-        DOMElements.phoneLinkDesktop.href = `tel:${config.contactPhone}`;
-        DOMElements.phoneLinkDesktop.textContent = config.contactPhone;
-
-        DOMElements.emailLinkMobile.href = `mailto:${config.contactEmail}`;
-        DOMElements.emailLinkMobile.textContent = config.contactEmail;
-        DOMElements.phoneLinkMobile.href = `tel:${config.contactPhone}`;
-        DOMElements.phoneLinkMobile.textContent = config.contactPhone;
-
-        // Handle visibility for desktop vs mobile layout
-        if (window.innerWidth <= 768) {
-            DOMElements.summaryPanel.classList.add('hidden');
-            DOMElements.contactInfoMobile.classList.remove('hidden');
-        } else {
-            DOMElements.summaryPanel.classList.remove('hidden');
-            DOMElements.contactInfoMobile.classList.add('hidden');
-        }
-
         if (appData.settings?.backgroundimageurl) {
           DOMElements.headerImage.src = appData.settings.backgroundimageurl;
           DOMElements.headerImage.style.display = 'block';
