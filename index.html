@@ -207,7 +207,7 @@
   </aside>
 
   <main class="steps-panel">
-    <h2 class="shop-name-mobile hidden">The Modern Cut</h2>
+    <h2 class="shop-name-mobile">The Modern Cut</h2>
     <div id="loader" class="loader"></div>
 
     <section id="services-step" class="booking-step hidden">
@@ -283,7 +283,8 @@
       loader: document.getElementById('loader'),
       errorContainer: document.getElementById('error-container'),
       headerImage: document.getElementById('header-image'),
-      shopNameTitle: document.getElementById('shop-name-title'),
+      shopNameDesktop: document.getElementById('shop-name-title'),
+      shopNameMobile: document.querySelector('.shop-name-mobile'),
       summary: {
         serviceItem: document.getElementById('summary-service-item'),
         service: document.getElementById('summary-service'),
@@ -521,7 +522,11 @@
     };
 
     const init = async () => {
-      DOMElements.shopNameTitle.textContent = config.shopName;
+      DOMElements.shopNameDesktop.textContent = config.shopName;
+      if (DOMElements.shopNameMobile) {
+          DOMElements.shopNameMobile.textContent = config.shopName;
+      }
+      
       try {
         const response = await fetch(config.getDataURL);
         if (!response.ok) throw new Error(`Network response was not ok`);
