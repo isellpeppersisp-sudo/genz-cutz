@@ -236,11 +236,13 @@
       border-color: var(--brand-green);
     }
 
+    /* --- FIX: Adjusted Card Image Size --- */
     .card-image {
-      height: 160px;
+      height: 140px; /* Reduced from 160px */
       width: 100%;
       background-size: cover;
-      background-position: center;
+      background-position: center; /* Ensures image is centered */
+      background-repeat: no-repeat;
       background-color: #1a1a1a;
       border-bottom: 1px solid var(--border-subtle);
     }
@@ -377,7 +379,10 @@
       #landing-page h1 { font-size: 2.2rem; }
       .step-header h3 { font-size: 1.8rem; }
       .card-grid { grid-template-columns: 1fr; } /* Full width cards */
-      .card-image { height: 180px; }
+      
+      /* FIX: Card image height adjusted on mobile */
+      .card-image { height: 140px; }
+      
       .form-grid { grid-template-columns: 1fr; } /* Stack form inputs */
       
       /* Landing adjustments */
