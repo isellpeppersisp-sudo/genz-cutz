@@ -236,14 +236,13 @@
       border-color: var(--brand-green);
     }
 
-    /* --- FIX: Adjusted Card Image Size --- */
+    /* Standard Card Image (Desktop uses Cover for sleekness) */
     .card-image {
-      height: 120px; /* Reduced from 160px */
+      height: 160px;
       width: 100%;
       background-size: cover;
-      background-position: center; /* Ensures image is centered */
-      background-repeat: no-repeat;
-      background-color: #1a1a1a;
+      background-position: center;
+      background-color: #111; /* Fallback color */
       border-bottom: 1px solid var(--border-subtle);
     }
     
@@ -380,8 +379,14 @@
       .step-header h3 { font-size: 1.8rem; }
       .card-grid { grid-template-columns: 1fr; } /* Full width cards */
       
-      /* FIX: Card image height adjusted on mobile */
-      .card-image { height: 160px; }
+      /* --- FIX: Card image showing full image instead of zooming in --- */
+      .card-image {
+        height: 140px;          /* Reasonable height for mobile */
+        background-size: contain; /* Shows WHOLE image, does not zoom/crop */
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: #000; /* Black background to frame the image if it doesn't fill the box */
+      }
       
       .form-grid { grid-template-columns: 1fr; } /* Stack form inputs */
       
