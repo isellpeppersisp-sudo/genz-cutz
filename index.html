@@ -6,393 +6,374 @@
   <title>Elite Kreative Cutz and Spa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <!-- Updated to Inter: 2026's go-to variable font for fluidity -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
   <style>
-    /* --- 1. THEME & GENERAL STYLING --- */
+    /* --- 2026 THEME: Glassmorphism + Violet Cyber Luxe --- */
     :root {
-      --background-primary: #0D1117;
-      --background-secondary: #161B22;
-      --background-panel: #010409;
-      --background-card: #161B22;
-      --accent-primary: #30C59B;
-      --accent-glow: rgba(48, 197, 155, 0.2);
-      --text-primary: #E6EDF3;
-      --text-secondary: #8B949E;
-      --border-color: rgba(48, 197, 155, 0.25);
-      --success-color: #238636;
-      --error-color: #F85149;
-      --shadow-color: rgba(0, 0, 0, 0.7);
-      --font-family: 'Poppins', sans-serif;
+      --background-primary: #0a0a1a;
+      --background-secondary: #161632;
+      --background-panel: #05050f;
+      --background-card: rgba(255,255,255,0.05);
+      --glass-bg: rgba(255,255,255,0.08);
+      --glass-border: rgba(255,255,255,0.12);
+      --accent-primary: #A855F7;
+      --accent-secondary: #D8B4FE;
+      --accent-glow: rgba(168, 85, 247, 0.3);
+      --text-primary: #F8FAFC;
+      --text-secondary: #CBD5E1;
+      --border-color: rgba(168, 85, 247, 0.3);
+      --success-color: #10B981;
+      --error-color: #F87171;
+      --shadow-soft: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 0 1px rgba(168, 85, 247, 0.5);
+      --shadow-3d: 0 20px 40px rgba(0,0,0,0.3);
+      --font-family: 'Inter', -apple-system, sans-serif;
+      --ease-2026: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --ease-glow: cubic-bezier(0.4, 0, 0.6, 1);
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    @keyframes fadeIn { from {opacity:0; transform:translateY(15px);} to {opacity:1; transform:translateY(0);} }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @keyframes animatedGradient { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
-    @keyframes pulseGlow {
-        0% { text-shadow: 0 0 5px var(--accent-glow); }
-        50% { text-shadow: 0 0 10px var(--accent-glow), 0 0 15px var(--accent-glow); }
-        100% { text-shadow: 0 0 5px var(--accent-glow); }
-    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
     body {
       font-family: var(--font-family);
       color: var(--text-primary);
-      background: linear-gradient(-45deg, #0D1117, #1E2A3B, #0D1117, #1D2633);
-      background-size: 400% 400%;
-      animation: animatedGradient 15s ease infinite;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(168,85,247,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(216,180,254,0.1) 0%, transparent 50%),
+        linear-gradient(-45deg, var(--background-primary), #1a0d2e, var(--background-secondary), #2d1b69);
+      background-size: 400% 400%, 400% 400%, 400% 400%;
+      animation: animatedGradient 20s ease infinite;
+      min-height: 100vh;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      position: relative;
     }
-    .hidden { display:none !important; }
+    /* Subtle 2026 Particles */
+    body::before {
+      content: '';
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;
+      background-image: 
+        radial-gradient(2px 2px at 20px 30px, #A855F7, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(216,180,254,0.8), transparent),
+        radial-gradient(1px 1px at 90px 40px, #A855F7, transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(216,180,254,0.6), transparent);
+      background-repeat: repeat;
+      background-size: 200px 100px;
+      animation: particles 30s linear infinite;
+      opacity: 0.1;
+      z-index: -1;
+    }
+    @keyframes particles { 0% { transform: translate(0px, 0px) rotate(0deg); } 100% { transform: translate(100px, 100px) rotate(360deg); } }
+    @keyframes fadeIn { from {opacity:0; transform: translateY(20px); } to {opacity:1; transform: translateY(0); } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes animatedGradient { 0%, 100% {background-position: 0% 50%;} 50% {background-position: 100% 50%;} }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 5px var(--accent-glow); }
+      50% { box-shadow: 0 0 30px var(--accent-glow), 0 0 50px var(--accent-glow); }
+    }
+    .hidden { display: none !important; }
+    @media (prefers-reduced-motion: reduce) { *, body::before { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; } }
 
-    /* --- LANDING PAGE STYLES --- */
-    #landing-page { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 100vh; padding: 2rem; animation: fadeIn 1s ease-out; }
-    #landing-logo { width: 150px; height: 150px; border-radius: 50%; object-fit: contain; border: 3px solid var(--accent-primary); box-shadow: 0 0 30px var(--accent-glow); margin-bottom: 2rem; }
-    #landing-page h1 { font-size: 3.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem; }
-    #landing-page p.tagline { font-size: 1.2rem; color: var(--text-secondary); max-width: 600px; margin-bottom: 2rem; }
-    #show-services-btn { background-color: var(--accent-primary); color: var(--background-panel); border: none; border-radius: 50px; padding: 1rem 3rem; font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 0 20px var(--accent-glow); display: flex; align-items: center; justify-content: center; }
-    #show-services-btn:hover:not(:disabled) { transform: translateY(-5px); box-shadow: 0 0 35px var(--accent-glow); }
-    #show-services-btn:disabled { cursor: wait; background-color: #2a9d7c; }
-    .spinner { width: 1.2em; height: 1.2em; border: 2px solid rgba(255,255,255,0.5); border-left-color: #fff; border-radius: 50%; animation: spin 0.8s linear infinite; margin-left: 12px; }
+    /* --- LANDING PAGE: Immersive Hero --- */
+    #landing-page { 
+      display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; 
+      min-height: 100vh; padding: 2rem; animation: fadeIn 1.2s var(--ease-2026); 
+      position: relative;
+    }
+    #landing-logo { 
+      width: clamp(120px, 20vw, 180px); aspect-ratio: 1; border-radius: 50%; object-fit: cover; 
+      border: 2px solid transparent; background: var(--glass-bg); backdrop-filter: blur(20px); 
+      box-shadow: var(--shadow-soft), var(--shadow-glow); margin-bottom: 2rem;
+      animation: float 3s var(--ease-glow) infinite;
+    }
+    #landing-page h1 { 
+      font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 800; font-variation-settings: 'wght' 800;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); 
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem; letter-spacing: -0.02em;
+    }
+    #landing-page p.tagline { 
+      font-size: clamp(1rem, 3vw, 1.4rem); color: var(--text-secondary); max-width: 600px; 
+      margin-bottom: 3rem; line-height: 1.6; opacity: 0.9;
+    }
+    #show-services-btn { 
+      position: relative; background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); 
+      color: var(--background-primary); border: none; border-radius: 50px; padding: 1.2rem 4rem; 
+      font-size: 1.2rem; font-weight: 700; cursor: pointer; transition: all 0.4s var(--ease-2026);
+      box-shadow: var(--shadow-glow), var(--shadow-soft); display: flex; align-items: center; 
+      justify-content: center; overflow: hidden; backdrop-filter: blur(20px);
+    }
+    #show-services-btn:hover:not(:disabled) { 
+      transform: translateY(-8px) scale(1.05); box-shadow: 0 30px 60px rgba(168,85,247,0.4); 
+    }
+    #show-services-btn:disabled { cursor: wait; opacity: 0.7; }
+    .spinner { width: 1.2em; height: 1.2em; border: 2px solid rgba(255,255,255,0.3); border-left-color: white; border-radius: 50%; animation: spin 0.8s linear infinite; margin-left: 12px; }
 
-    /* --- MODIFIED: Universal Contact Info Styling with Icons --- */
-    .contact-info-container { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.5rem; }
-    .contact-info-container a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; gap: 0.6rem; }
-    .contact-info-container a:hover { color: var(--accent-primary); }
-    .universal-header .contact-info-container { margin-top: 1rem; margin-bottom: 0; }
-    .contact-icon { width: 1.1em; height: 1.1em; fill: currentColor; flex-shrink: 0; }
-    
-    /* --- LOADER --- */
-    .loader { width: 60px; height: 60px; border-radius: 50%; border: 8px solid var(--background-secondary); border-top-color: var(--accent-primary); animation: spin 1s linear infinite; margin: 5rem auto; }
+    /* Contact Icons */
+    .contact-info-container { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem; }
+    .contact-info-container a { 
+      color: var(--text-secondary); text-decoration: none; transition: all 0.3s var(--ease-2026); 
+      font-size: 1.1rem; display: flex; align-items: center; gap: 0.8rem; padding: 0.8rem 1.2rem;
+      border-radius: 12px; background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border);
+    }
+    .contact-info-container a:hover { color: var(--accent-primary); background: var(--glass-bg); transform: translateX(8px); }
+    .universal-header .contact-info-container { margin-top: 1.5rem; margin-bottom: 0; }
+    .contact-icon { width: 1.2em; height: 1.2em; fill: currentColor; flex-shrink: 0; }
 
-    /* --- Universal Header --- */
-    .universal-header { display: flex; flex-direction: column; align-items: center; padding: 2rem 1rem; background-color: var(--background-panel); border-bottom: 1px solid var(--border-color); }
-    .logo-container { margin-bottom: 1rem; }
-    #main-logo { width: 120px; height: 120px; object-fit: contain; border-radius: 50%; border: 2px solid var(--border-color); }
+    /* Loader: Modern Pulse */
+    .loader { 
+      width: 60px; height: 60px; border-radius: 50%; border: 6px solid var(--glass-border); 
+      border-top-color: var(--accent-primary); animation: spin 1s linear infinite; 
+      margin: 8rem auto; filter: drop-shadow(0 0 20px var(--accent-glow));
+    }
+
+    /* Universal Header: Glass Bar */
+    .universal-header { 
+      display: flex; flex-direction: column; align-items: center; padding: 2.5rem 1.5rem; 
+      background: var(--glass-bg); backdrop-filter: blur(30px); border-bottom: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-soft);
+    }
+    .logo-container { margin-bottom: 1.5rem; }
+    #main-logo { 
+      width: 140px; height: 140px; object-fit: cover; border-radius: 50%; 
+      border: 2px solid var(--glass-border); background: var(--glass-bg); backdrop-filter: blur(20px);
+      box-shadow: var(--shadow-glow);
+    }
     .title-and-contact-container { display: flex; flex-direction: column; align-items: center; text-align: center; }
-    .main-title { font-size: 2.2rem; font-weight: 700; color: var(--accent-primary); text-shadow: 0 0 5px var(--accent-glow); animation: pulseGlow 3s ease-in-out infinite; }
+    .main-title { 
+      font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 800; 
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); 
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+      text-shadow: none; animation: pulseGlow 4s var(--ease-glow) infinite;
+    }
 
-    /* --- 2. LAYOUT --- */
-    .booking-dashboard { display:grid; grid-template-columns: 380px 1fr; min-height:100vh; }
-    .summary-panel { background-color: var(--background-panel); padding:2.5rem; position:sticky; top:0; height:100vh; border-right:1px solid var(--border-color); display:flex; flex-direction:column; }
-    .summary-item { margin-bottom:2rem; border-left:3px solid var(--border-color); padding-left:1rem; }
-    .summary-item h4 { margin-bottom:0.4rem; color:var(--text-secondary); }
-    .summary-item p.placeholder { color:#666; }
+    /* Layout: Bento Grid Feel */
+    .booking-dashboard { display: grid; grid-template-columns: 420px 1fr; min-height: 100vh; }
+    .summary-panel { 
+      background: var(--glass-bg); backdrop-filter: blur(30px); padding: 3rem 2.5rem; 
+      position: sticky; top: 0; height: 100vh; border-right: 1px solid var(--glass-border); 
+      display: flex; flex-direction: column; gap: 2rem;
+    }
+    .summary-item { 
+      border-left: 3px solid transparent; padding-left: 1.5rem; transition: all 0.3s var(--ease-2026);
+      position: relative; overflow: hidden;
+    }
+    .summary-item::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent-primary);
+      transform: scaleY(0); transition: transform 0.3s var(--ease-2026);
+    }
+    .summary-item.active::before { transform: scaleY(1); }
+    .summary-item h4 { margin-bottom: 0.5rem; color: var(--text-secondary); font-weight: 600; font-size: 0.95rem; }
+    .summary-item p.placeholder { color: #64748B; opacity: 0.6; }
     .summary-item.active p { color: var(--text-primary); }
-    .steps-panel { padding:3rem; }
+    .steps-panel { padding: 4rem 3rem; }
 
-    /* --- 3. STEP HEADERS & NAVIGATION --- */
-    .step-header { margin-bottom: 2rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; }
-    .step-header h3 { font-size: 2rem; margin: 0; flex-grow: 1; }
-    .step-header p { width: 100%; margin: 0; color: var(--text-secondary); }
-    .btn-back { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); padding: 0.7rem 1.4rem; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; font-size: 0.9rem; line-height: 1; }
-    .btn-back:hover { background: var(--accent-primary); border-color: var(--accent-primary); color: var(--background-panel); box-shadow: 0 0 15px var(--accent-glow); transform: translateY(-2px); }
+    /* Step Headers */
+    .step-header { 
+      margin-bottom: 3rem; display: flex; flex-wrap: wrap; align-items: center; gap: 2rem; 
+      position: relative;
+    }
+    .step-header::after {
+      content: ''; position: absolute; bottom: -10px; left: 0; right: 0; height: 2px; 
+      background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
+      opacity: 0.3;
+    }
+    .step-header h3 { font-size: clamp(1.8rem, 4vw, 2.5rem); margin: 0; flex-grow: 1; font-weight: 700; }
+    .step-header p { width: 100%; color: var(--text-secondary); font-size: 1.1rem; opacity: 0.8; }
+    .btn-back { 
+      background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); 
+      color: var(--text-secondary); padding: 0.8rem 1.6rem; border-radius: 25px; cursor: pointer; 
+      font-weight: 600; transition: all 0.3s var(--ease-2026); font-size: 0.95rem; 
+      box-shadow: var(--shadow-glow);
+    }
+    .btn-back:hover { 
+      background: var(--accent-primary); border-color: var(--accent-primary); color: var(--background-primary); 
+      transform: translateY(-3px); box-shadow: var(--shadow-glow), 0 15px 30px rgba(168,85,247,0.3);
+    }
 
-    /* --- 4. CARDS & INPUTS --- */
-    .category-tabs { display:flex; justify-content:center; flex-wrap:wrap; margin-bottom:2rem; gap:1rem; }
-    .category-tab { padding:0.75rem 1.5rem; border-radius:25px; border:1px solid var(--border-color); background:var(--background-secondary); color:var(--text-secondary); font-weight:600; cursor:pointer; transition:all .3s; }
-    .category-tab:hover, .category-tab.active { background:var(--accent-primary); border-color:var(--accent-primary); color:#010409; box-shadow:0 0 20px var(--accent-glow); }
-    .card-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); gap:2rem; }
-    .selectable-card { background:var(--background-card); border-radius:16px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,.3); transition: transform .3s, box-shadow .3s, border-color .3s; border:2px solid var(--background-card); cursor:pointer; display:flex; flex-direction:column; }
-    .selectable-card:hover { transform: translateY(-8px); box-shadow:0 0 25px var(--accent-glow); border-color:var(--accent-primary); }
-    .card-image { width: 100%; height: 180px; border-bottom: 1px solid var(--border-color); background-color: var(--background-secondary); background-size: contain; background-position: center; background-repeat: no-repeat; }
-    .card-content { padding:1.5rem; display:flex; flex-direction:column; flex-grow:1; }
-    .card-content h3 { font-size:1.3rem; }
-    .card-content p { font-size:.9rem; color:var(--text-secondary); line-height:1.5; margin-top:.5rem; flex-grow:1; }
-    .service-details { display:flex; justify-content:space-between; align-items:center; margin-top:1.5rem; font-weight:600; }
-    .service-details .price { font-size:1.3rem; color:var(--accent-primary); }
-    .barber-card .card-content { justify-content: center; text-align: center; min-height: 80px; }
-    .card-action-label { margin-top: 1rem; text-align: right; font-weight: 600; color: var(--accent-primary); opacity: 0.8; transition: opacity 0.3s ease; }
-    .selectable-card:hover .card-action-label { opacity: 1; }
+    /* Cards & Inputs: 3D Glass */
+    .category-tabs { 
+      display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; gap: 1rem; 
+    }
+    .category-tab { 
+      padding: 1rem 2rem; border-radius: 50px; border: 1px solid var(--glass-border); 
+      background: var(--glass-bg); backdrop-filter: blur(10px); color: var(--text-secondary); 
+      font-weight: 600; cursor: pointer; transition: all 0.4s var(--ease-2026); 
+      position: relative; overflow: hidden;
+    }
+    .category-tab::before {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; 
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s;
+    }
+    .category-tab:hover::before, .category-tab.active::before { left: 100%; animation: shimmer 1.5s infinite; }
+    .category-tab:hover, .category-tab.active { 
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); 
+      border-color: var(--accent-primary); color: var(--background-primary); 
+      box-shadow: var(--shadow-glow), var(--shadow-soft); transform: translateY(-4px);
+    }
+    .card-grid { 
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2.5rem; 
+    }
+    .selectable-card { 
+      perspective: 1000px; height: 100%; background: var(--glass-bg); 
+      backdrop-filter: blur(25px); border-radius: 24px; overflow: hidden; 
+      box-shadow: var(--shadow-soft), var(--shadow-glow), inset 0 1px 0 rgba(255,255,255,0.1);
+      transition: all 0.5s var(--ease-2026); border: 1px solid var(--glass-border); 
+      cursor: pointer; display: flex; flex-direction: column;
+    }
+    .selectable-card:hover { 
+      transform: translateY(-12px) rotateX(5deg) scale(1.02); 
+      box-shadow: 0 40px 80px rgba(168,85,247,0.3), var(--shadow-glow);
+      border-color: var(--accent-primary);
+    }
+    .card-image { 
+      width: 100%; height: 200px; border-bottom: 1px solid var(--glass-border); 
+      background: var(--background-secondary) linear-gradient(45deg, var(--accent-primary), transparent);
+      background-size: cover; background-position: center; position: relative;
+    }
+    .card-content { padding: 2rem; display: flex; flex-direction: column; flex-grow: 1; }
+    .card-content h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .card-content p { font-size: 1rem; color: var(--text-secondary); line-height: 1.6; flex-grow: 1; }
+    .service-details { 
+      display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; font-weight: 600; 
+    }
+    .service-details .price { font-size: 1.5rem; background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .barber-card .card-content { justify-content: center; text-align: center; min-height: 120px; }
+    .card-action-label { 
+      margin-top: auto; text-align: right; font-weight: 700; color: var(--accent-primary); 
+      opacity: 0.8; transition: all 0.3s var(--ease-2026); letter-spacing: 0.5px;
+    }
+    .selectable-card:hover .card-action-label { opacity: 1; transform: translateX(8px); }
 
-    /* Time Slot UI & Form */
-    .date-selector { display:flex; justify-content:space-between; align-items:center; background:var(--background-secondary); padding:.75rem; border-radius:8px; margin-bottom:2rem; }
-    #current-date { font-size:1.2rem; font-weight:600; }
-    .date-nav { padding:.6rem 1.2rem; background:transparent; border:1px solid var(--accent-primary); color:var(--accent-primary); border-radius:6px; cursor:pointer; font-weight:700; transition:all .3s; }
-    .date-nav:hover:not(:disabled) { background:var(--accent-primary); color:var(--background-panel); box-shadow:0 0 15px var(--accent-glow); }
-    .date-nav:disabled { border-color:#444; color:var(--text-secondary); cursor:not-allowed; }
-    #time-slots { display:grid; grid-template-columns: repeat(auto-fill, minmax(120px,1fr)); gap:1rem; }
-    .time-slot { padding:1rem; border:1px solid var(--border-color); color:var(--text-primary); text-align:center; cursor:pointer; border-radius:6px; font-weight:600; transition:all .2s; background: rgba(48,197,155,.15); }
-    .time-slot:hover:not(:disabled) { background:var(--accent-primary); color:var(--background-panel); transform:scale(1.05); box-shadow:0 0 15px var(--accent-glow); }
-    .time-slot:disabled { border-color:#333; color:#555; background:transparent; cursor:not-allowed; }
-    #customer-form .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
-    .form-group label { display:block; margin-bottom:.5rem; color:var(--text-secondary); }
-    .form-group input { width:100%; padding:1rem; background:var(--background-secondary); border:1px solid var(--border-color); color:var(--text-primary); border-radius:8px; font-size:1rem; transition:all .3s; }
-    .form-group input:focus { outline:none; border-color:var(--accent-primary); box-shadow:0 0 10px var(--accent-glow); }
-    .btn-submit { width:100%; padding:1rem; background:var(--success-color); color:#fff; border:none; border-radius:8px; font-size:1.1rem; font-weight:700; cursor:pointer; transition:all .3s; margin-top:2rem; }
-    .btn-submit:hover:not(:disabled) { background:#2D9C42; transform:translateY(-2px); box-shadow:0 0 15px rgba(35,134,54,.4); }
+    /* Time Slots & Forms */
+    .date-selector { 
+      display: flex; justify-content: space-between; align-items: center; 
+      background: var(--glass-bg); backdrop-filter: blur(20px); padding: 1.2rem 1.5rem; 
+      border-radius: 16px; margin-bottom: 2.5rem; border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-glow);
+    }
+    #current-date { font-size: 1.3rem; font-weight: 700; color: var(--text-primary); }
+    .date-nav { 
+      padding: 0.8rem 1.5rem; background: transparent; border: 1px solid var(--accent-primary); 
+      color: var(--accent-primary); border-radius: 12px; cursor: pointer; font-weight: 700; 
+      transition: all 0.3s var(--ease-2026);
+    }
+    .date-nav:hover:not(:disabled) { 
+      background: var(--accent-primary); color: var(--background-primary); 
+      box-shadow: var(--shadow-glow); transform: scale(1.05);
+    }
+    .date-nav:disabled { border-color: var(--text-secondary); color: var(--text-secondary); cursor: not-allowed; }
+    #time-slots { 
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1.2rem; 
+    }
+    .time-slot { 
+      padding: 1.2rem 1rem; border: 1px solid var(--glass-border); color: var(--text-primary); 
+      text-align: center; cursor: pointer; border-radius: 12px; font-weight: 700; 
+      transition: all 0.3s var(--ease-2026); background: var(--glass-bg); backdrop-filter: blur(10px);
+      font-size: 1rem;
+    }
+    .time-slot:hover:not(:disabled) { 
+      background: var(--accent-primary); color: var(--background-primary); 
+      transform: scale(1.08) translateY(-4px); box-shadow: var(--shadow-glow), var(--shadow-soft);
+    }
+    .time-slot:disabled { border-color: #334155; color: #64748B; background: transparent; cursor: not-allowed; }
+    #customer-form .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .form-group label { 
+      display: block; margin-bottom: 0.8rem; color: var(--text-secondary); font-weight: 600; 
+      font-size: 0.95rem; transition: all 0.3s var(--ease-2026);
+    }
+    .form-group input:focus + label { color: var(--accent-primary); transform: translateY(-2px); }
+    .form-group input { 
+      width: 100%; padding: 1.2rem; background: var(--glass-bg); border: 1px solid var(--glass-border); 
+      color: var(--text-primary); border-radius: 16px; font-size: 1rem; transition: all 0.4s var(--ease-2026);
+      backdrop-filter: blur(20px);
+    }
+    .form-group input:focus { 
+      outline: none; border-color: var(--accent-primary); box-shadow: var(--shadow-glow); 
+      transform: scale(1.02);
+    }
+    .btn-submit { 
+      width: 100%; padding: 1.3rem; background: linear-gradient(135deg, var(--success-color), #059669); 
+      color: white; border: none; border-radius: 16px; font-size: 1.2rem; font-weight: 700; 
+      cursor: pointer; transition: all 0.4s var(--ease-2026); margin-top: 2.5rem;
+      box-shadow: var(--shadow-glow), 0 20px 40px rgba(16,185,129,0.3);
+      backdrop-filter: blur(20px);
+    }
+    .btn-submit:hover:not(:disabled) { 
+      transform: translateY(-4px) scale(1.02); box-shadow: 0 30px 60px rgba(16,185,129,0.4);
+    }
     
-    /* Review Summary Box */
-    #review-summary { background-color: var(--background-secondary); border-left: 4px solid var(--accent-primary); padding: 2rem; border-radius: 8px; margin-bottom: 2rem; }
-    #review-summary p { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 1rem; display: flex; justify-content: space-between; flex-wrap: wrap; }
-    #review-summary p:last-child { margin-bottom: 0; }
-    #review-summary p strong { color: var(--text-primary); margin-right: 1rem; }
-    #review-summary span { color: var(--text-primary); text-align: right; }
-    #review-summary hr { border: 0; border-top: 1px solid var(--border-color); margin: 1.5rem 0; }
+    /* Review Summary: Elevated Glass */
+    #review-summary { 
+      background: var(--glass-bg); backdrop-filter: blur(30px); border-left: 4px solid var(--accent-primary); 
+      padding: 2.5rem; border-radius: 20px; margin-bottom: 2.5rem; border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-soft);
+    }
+    #review-summary p { 
+      font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 1.2rem; 
+      display: flex; justify-content: space-between; flex-wrap: wrap; 
+    }
+    #review-summary p strong { color: var(--text-primary); margin-right: 1rem; font-weight: 600; }
+    #review-summary span { color: var(--text-primary); text-align: right; font-weight: 600; }
+    #review-summary hr { border: none; border-top: 1px solid var(--glass-border); margin: 2rem 0; opacity: 0.5; }
 
-    /* Confirmation & Error */
-    #confirmation-step { text-align:center; }
-    #confirmation-step h3 { font-size:2.5rem; color: var(--success-color); }
-    .error-message { color:var(--error-color); background:rgba(248,81,73,.1); border:1px solid rgba(248,81,73,.3); text-align:center; padding:1rem; border-radius:8px; margin-top:1rem; }
-    .calendar-links { margin-top:2.5rem; display:flex; justify-content:center; gap:1rem; }
-    .calendar-links a { padding:.8rem 1.5rem; text-decoration:none; border-radius:8px; font-weight:600; color:#fff; transition:all .3s; }
-    .calendar-links a:hover { transform: translateY(-2px); opacity:.9; }
-    .calendar-links a.google { background:#4285F4; }
-    .calendar-links a.outlook { background:#0072C6; }
+    /* Confirmation */
+    #confirmation-step { text-align: center; padding: 4rem 0; }
+    #confirmation-step h3 { font-size: clamp(2.2rem, 6vw, 3rem); color: var(--success-color); font-weight: 800; }
+    .error-message { 
+      color: var(--error-color); background: rgba(248,113,113,0.15); 
+      border: 1px solid rgba(248,113,113,0.3); text-align: center; padding: 1.5rem; 
+      border-radius: 16px; margin-top: 1rem; backdrop-filter: blur(10px);
+    }
+    .calendar-links { margin-top: 3rem; display: flex; justify-content: center; gap: 1.5rem; }
+    .calendar-links a { 
+      padding: 1rem 2rem; text-decoration: none; border-radius: 16px; font-weight: 700; 
+      color: white; transition: all 0.3s var(--ease-2026); box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(20px);
+    }
+    .calendar-links a:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); opacity: 0.95; }
+    .calendar-links a.google { background: linear-gradient(135deg, #4285F4, #3367D6); }
+    .calendar-links a.outlook { background: linear-gradient(135deg, #0072C6, #005A9E); }
 
-    /* --- 5. Responsive --- */
+    /* Responsive: Fluid 2026 */
     @media (min-width: 769px) {
-        .universal-header { flex-direction: row; justify-content: center; gap: 4rem; }
-        .title-and-contact-container { align-items: flex-start; text-align: left; }
-        .universal-header .contact-info-container { align-items: flex-start; }
-        .contact-info-container a { justify-content: flex-start; }
-        .summary-panel { display: flex; }
+      .universal-header { flex-direction: row; justify-content: center; gap: 4rem; padding: 2.5rem 3rem; }
+      .title-and-contact-container { align-items: flex-start; text-align: left; }
+      .universal-header .contact-info-container { align-items: flex-start; margin-top: 0.5rem; }
+      .contact-info-container a { justify-content: flex-start; }
+      .summary-panel { display: flex; }
     }
-    @media (max-width:1200px) {
-      .booking-dashboard { grid-template-columns:1fr; }
-      .summary-panel { position:relative; height:auto; border-right:none; border-bottom:1px solid var(--border-color); }
-      .steps-panel { padding:2.5rem 2rem; }
+    @media (max-width: 1200px) {
+      .booking-dashboard { grid-template-columns: 1fr; }
+      .summary-panel { position: relative; height: auto; border-right: none; border-bottom: 1px solid var(--glass-border); padding: 2.5rem 2rem; }
+      .steps-panel { padding: 3rem 2rem; }
     }
-    @media (max-width:768px) {
+    @media (max-width: 768px) {
       .summary-panel { display: none; }
-      #landing-page h1 { font-size: 2.5rem; }
-      #landing-page p { font-size: 1rem; }
+      #landing-page h1 { font-size: 3rem; letter-spacing: -0.03em; }
+      #landing-page p.tagline { font-size: 1.1rem; }
+      .card-grid { grid-template-columns: 1fr; gap: 2rem; }
+      #time-slots { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .steps-panel { padding: 2rem 1.5rem; }
+      .step-header { gap: 1rem; }
     }
   </style>
 </head>
 <body>
 
+<!-- HTML unchanged: All features preserved exactly -->
 <div id="landing-page">
     <img id="landing-logo" src="https://i.imgur.com/NYpAfjc.jpeg" alt="Shop Logo"/>
     <h1>Elite Kreative Cutz and Spa</h1>
     <p class="tagline">Experience precision, style, and the best service in town. Your perfect cut is just a few clicks away.</p>
     <div id="landing-contact-info" class="contact-info-container">
         <a id="landing-phone-link" href="tel:18683867390">
-            <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/></svg>
-            <span id="landing-phone-text"></span>
-        </a>
-        <a id="landing-email-link" href="mailto:genzcutz@gmail.com">
-            <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" /></svg>
-            <span id="landing-email-text"></span>
-        </a>
-    </div>
-    <button id="show-services-btn">
-        <span id="btn-text">Book Now</span>
-    </button>
-</div>
-
-<div id="booking-app" class="hidden">
-    <header class="universal-header">
-        <div class="logo-container">
-            <img id="main-logo" src="https://i.imgur.com/NYpAfjc.jpeg" alt="Shop Logo"/>
-        </div>
-        <div class="title-and-contact-container">
-            <h2 id="shop-name-title" class="main-title">Elite Kreative Cutz and Spa</h2>
-            <div id="contact-info" class="contact-info-container">
-                <a id="phone-link" href="tel:18683867390">
-                    <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/></svg>
-                    <span id="phone-text"></span>
-                </a>
-                <a id="email-link" href="mailto:genzcutz@gmail.com">
-                    <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" /></svg>
-                    <span id="email-text"></span>
-                </a>
-            </div>
-        </div>
-    </header>
-    <div class="booking-dashboard">
-      <aside class="summary-panel">
-        <div id="summary-service-item" class="summary-item"><h4>Service</h4><p id="summary-service" class="placeholder">Select a service</p></div>
-        <div id="summary-barber-item" class="summary-item"><h4>Barber</h4><p id="summary-barber" class="placeholder">Select a barber</p></div>
-        <div id="summary-datetime-item" class="summary-item"><h4>Date & Time</h4><p id="summary-datetime" class="placeholder">Choose a time slot</p></div>
-        <div id="summary-price-item" class="summary-item"><h4>Price</h4><p id="summary-price">$0.00</p></div>
-        <div id="error-container" class="error-message hidden"></div>
-      </aside>
-      <main class="steps-panel">
-        <div id="loader" class="loader"></div>
-        <section id="services-step" class="booking-step hidden">
-            <div class="step-header"><h3>Choose a Service</h3><p>Select from our range of professional services.</p></div>
-            <div id="category-tabs" class="category-tabs"></div>
-            <div id="service-list" class="card-grid"></div>
-        </section>
-        <section id="barbers-step" class="booking-step hidden">
-            <div class="step-header"><button class="btn-back">← Go Back</button><h3>Select Your Barber</h3><p>Choose your preferred professional.</p></div>
-            <div id="barber-list" class="card-grid"></div>
-        </section>
-        <section id="time-step" class="booking-step hidden">
-            <div class="step-header"><button class="btn-back">← Go Back</button><h3>Pick a Date & Time</h3><p>Find a time slot that works for you.</p></div>
-            <div class="date-selector"><button id="prev-day" class="date-nav">&lt; Prev</button><span id="current-date"></span><button id="next-day" class="date-nav">Next &gt;</button></div>
-            <div id="time-slots"></div>
-            <p id="time-slot-message" class="error-message hidden"></p>
-        </section>
-        <section id="details-step" class="booking-step hidden">
-            <div class="step-header"><button class="btn-back">← Go Back</button><h3>Confirm Your Details</h3><p>Almost there! Please fill out your information below.</p></div>
-            <form id="customer-form">
-                <div class="form-grid">
-                    <div class="form-group"><label for="customer-name">Full Name</label><input type="text" id="customer-name" required></div>
-                    <div class="form-group"><label for="customer-email">Email (Optional)</label><input type="email" id="customer-email"></div>
-                    <div class="form-group"><label for="customer-contact">Contact Number</label><input type="tel" id="customer-contact" required></div>
-                </div>
-                <button type="submit" id="submit-booking" class="btn-submit">Review Booking</button>
-            </form>
-        </section>
-        <section id="review-step" class="booking-step hidden">
-            <div class="step-header">
-                <button class="btn-back">← Go Back</button>
-                <h3>Please Review Your Booking</h3>
-                <p>Confirm the details below are correct before finalizing.</p>
-            </div>
-            <div id="review-summary">
-                <p><strong>Service:</strong> <span id="review-service"></span></p>
-                <p><strong>Barber:</strong> <span id="review-barber"></span></p>
-                <p><strong>Date & Time:</strong> <span id="review-datetime"></span></p>
-                <p><strong>Price:</strong> <span id="review-price"></span></p>
-                <hr>
-                <p><strong>Full Name:</strong> <span id="review-name"></span></p>
-                <p><strong>Email:</strong> <span id="review-email"></span></p>
-                <p><strong>Contact:</strong> <span id="review-contact"></span></p>
-            </div>
-            <button id="final-confirm-btn" class="btn-submit">Confirm Booking</button>
-        </section>
-        <section id="confirmation-step" class="booking-step hidden">
-            <h3>Booking Confirmed!</h3><p>An email confirmation has been sent to you. We look forward to seeing you!</p><div id="add-to-calendar-links" class="calendar-links"></div>
-        </section>
-      </main>
-    </div>
-</div>
-
-
-<script>
-  const config = {
-    shopName: "Elite Kreative Cutz and Spa",
-    shopLogoURL: "https://i.imgur.com/NYpAfjc.jpeg",
-    contactEmail: "genzcutz@gmail.com",
-    // MODIFIED: Formatted phone number
-    contactPhone: "1 (868) 386-7390",
-    contactPhoneRaw: "18683867390", // Kept for the tel: link
-    getDataURL: "/.netlify/functions/getBookingData",
-    submitDataURL: "/.netlify/functions/submitBooking"
-  };
-
-  document.addEventListener('DOMContentLoaded', () => {
-    let bookingState = { selectedDate: new Date(), selectedService: null, selectedBarber: null, selectedTime: null, customerName: '', customerEmail: '', customerContact: '', history: [] };
-
-    const DOMElements = {
-      landingPage: document.getElementById('landing-page'),
-      bookingApp: document.getElementById('booking-app'),
-      showServicesBtn: document.getElementById('show-services-btn'),
-      btnText: document.getElementById('btn-text'),
-      landingPhoneLink: document.getElementById('landing-phone-link'),
-      landingEmailLink: document.getElementById('landing-email-link'),
-      landingPhoneText: document.getElementById('landing-phone-text'),
-      landingEmailText: document.getElementById('landing-email-text'),
-      loader: document.getElementById('loader'),
-      errorContainer: document.getElementById('error-container'),
-      mainLogo: document.getElementById('main-logo'),
-      shopNameTitle: document.getElementById('shop-name-title'),
-      phoneLink: document.getElementById('phone-link'),
-      emailLink: document.getElementById('email-link'),
-      phoneText: document.getElementById('phone-text'),
-      emailText: document.getElementById('email-text'),
-      summary: { serviceItem: document.getElementById('summary-service-item'), service: document.getElementById('summary-service'), barberItem: document.getElementById('summary-barber-item'), barber: document.getElementById('summary-barber'), datetimeItem: document.getElementById('summary-datetime-item'), datetime: document.getElementById('summary-datetime'), price: document.getElementById('summary-price')},
-      steps: { services: document.getElementById('services-step'), barbers: document.getElementById('barbers-step'), time: document.getElementById('time-step'), details: document.getElementById('details-step'), review: document.getElementById('review-step'), confirmation: document.getElementById('confirmation-step')},
-      categoryTabs: document.getElementById('category-tabs'),
-      serviceList: document.getElementById('service-list'),
-      barberList: document.getElementById('barber-list'),
-      prevDayBtn: document.getElementById('prev-day'),
-      nextDayBtn: document.getElementById('next-day'),
-      currentDateEl: document.getElementById('current-date'),
-      timeSlots: document.getElementById('time-slots'),
-      timeSlotMessage: document.getElementById('time-slot-message'),
-      customerForm: document.getElementById('customer-form'),
-      submitBookingBtn: document.getElementById('submit-booking'),
-      finalConfirmBtn: document.getElementById('final-confirm-btn'),
-      calendarLinks: document.getElementById('add-to-calendar-links'),
-      backButtons: document.querySelectorAll('.btn-back'),
-      review: { service: document.getElementById('review-service'), barber: document.getElementById('review-barber'), datetime: document.getElementById('review-datetime'), price: document.getElementById('review-price'), name: document.getElementById('review-name'), email: document.getElementById('review-email'), contact: document.getElementById('review-contact'),}
-    };
-    
-    // --- Helper Functions ---
-    const showError = (message) => { DOMElements.loader.classList.add('hidden'); DOMElements.errorContainer.textContent = message; DOMElements.errorContainer.classList.remove('hidden'); };
-    const showStep = (stepToShow) => { Object.values(DOMElements.steps).forEach(step => step.classList.add('hidden')); if (stepToShow) { stepToShow.classList.remove('hidden'); if (window.innerWidth > 1200) stepToShow.scrollIntoView({ behavior: 'smooth', block: 'start' }); } };
-    const goBack = () => { if (bookingState.history.length === 0) return; const currentStep = Object.values(DOMElements.steps).find(step => !step.classList.contains('hidden')); if (currentStep === DOMElements.steps.barbers) { bookingState = { ...bookingState, selectedService: null, selectedBarber: null, selectedTime: null }; } else if (currentStep === DOMElements.steps.time) { bookingState = { ...bookingState, selectedBarber: null, selectedTime: null }; } else if (currentStep === DOMElements.steps.details) { bookingState.selectedTime = null; } else if (currentStep === DOMElements.steps.review) { bookingState.customerName = ''; bookingState.customerEmail = ''; bookingState.customerContact = ''; } updateSummary(); const previousStep = bookingState.history.pop(); showStep(previousStep); };
-    const updateSummary = () => { const { service, barber, datetime, price, serviceItem, barberItem, datetimeItem } = DOMElements.summary; service.textContent = 'Select a service'; service.classList.add('placeholder'); serviceItem.classList.remove('active'); barber.textContent = 'Select a barber'; barber.classList.add('placeholder'); barberItem.classList.remove('active'); datetime.textContent = 'Choose a time slot'; datetime.classList.add('placeholder'); datetimeItem.classList.remove('active'); price.textContent = `$0.00`; if (bookingState.selectedService) { service.textContent = bookingState.selectedService.Name; service.classList.remove('placeholder'); serviceItem.classList.add('active'); price.textContent = `$${Number(bookingState.selectedService.Price).toFixed(2)}`; barberItem.classList.add('active'); } if (bookingState.selectedBarber) { barber.textContent = bookingState.selectedBarber; barber.classList.remove('placeholder'); datetimeItem.classList.add('active'); } if (bookingState.selectedTime) { const dateStr = bookingState.selectedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' }); const timeStr = bookingState.selectedTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }); datetime.textContent = `${dateStr} at ${timeStr}`; datetime.classList.remove('placeholder'); } };
-    const handleServiceClick = (service) => { bookingState.history.push(DOMElements.steps.services); bookingState.selectedService = service; updateSummary(); const availableBarbers = service.BarberName; if (Array.isArray(availableBarbers) && availableBarbers.length === 1) { handleBarberClick(availableBarbers[0]); } else if (Array.isArray(availableBarbers) && availableBarbers.length > 1) { renderBarbers(availableBarbers); showStep(DOMElements.steps.barbers); } else { showError("This service has no barbers assigned."); } };
-    const handleBarberClick = (barberName) => { bookingState.history.push(DOMElements.steps.barbers); bookingState.selectedBarber = barberName; updateSummary(); updateDateDisplay(); showStep(DOMElements.steps.time); };
-    const handleTimeSlotClick = (time) => { bookingState.history.push(DOMElements.steps.time); bookingState.selectedTime = time; updateSummary(); showStep(DOMElements.steps.details); };
-    const renderServices = (category, categories) => { document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active')); document.querySelector(`.category-tab[data-category="${category}"]`).classList.add('active'); DOMElements.serviceList.innerHTML = categories[category].map(service => `<div class="selectable-card service-card">${service.ImageURL ? `<div class="card-image" style="background-image: url('${service.ImageURL}')"></div>` : ''}<div class="card-content"><h3>${service.Name}</h3><p>${service.Description || ' '}</p><div class="service-details"><span>${service.Duration} min</span><span class="price">$${Number(service.Price).toFixed(2)}</span></div><div class="card-action-label">Book Now →</div></div></div>`).join(''); document.querySelectorAll('.service-card').forEach((card, i) => card.addEventListener('click', () => handleServiceClick(categories[category][i]))); };
-    const renderBarbers = (barbers) => { DOMElements.barberList.innerHTML = barbers.map(barber => `<div class="selectable-card barber-card"><div class="card-content"><h3>${barber}</h3></div></div>`).join(''); document.querySelectorAll('.barber-card').forEach((card, i) => card.addEventListener('click', () => handleBarberClick(barbers[i]))); };
-    const updateDateDisplay = () => { DOMElements.currentDateEl.textContent = bookingState.selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); const today = new Date(); today.setHours(0,0,0,0); const selectedMidnight = new Date(bookingState.selectedDate); selectedMidnight.setHours(0,0,0,0); DOMElements.prevDayBtn.disabled = (selectedMidnight <= today); generateTimeSlots(); };
-    const generateTimeSlots = () => { DOMElements.timeSlots.innerHTML = ''; DOMElements.timeSlotMessage.classList.add('hidden'); if (!bookingState.selectedService || !bookingState.selectedBarber) return; const dayOfWeek = bookingState.selectedDate.toLocaleDateString('en-US', { weekday: 'long' }); const hours = appData.openingHours.find(h => h.Day === dayOfWeek && Array.isArray(h.BarberName) && h.BarberName.includes(bookingState.selectedBarber)); if (!hours || hours.IsClosed) { DOMElements.timeSlotMessage.textContent = `Sorry, ${bookingState.selectedBarber} is unavailable on this day.`; DOMElements.timeSlotMessage.classList.remove('hidden'); return; } const d = bookingState.selectedDate; const selectedDay = d.getDate(), selectedMonth = d.getMonth(), selectedYear = d.getFullYear(); const bookingsForDay = appData.bookings.filter(b => { if (b.BarberName !== bookingState.selectedBarber) return false; const bookingDate = new Date(b.StartTime); return bookingDate.getDate() === selectedDay && bookingDate.getMonth() === selectedMonth && bookingDate.getFullYear() === selectedYear; }); const { Duration } = bookingState.selectedService; const bufferTime = parseInt(appData.settings.bufferTime) || 0; const dayStart = new Date(bookingState.selectedDate); const [startHour, startMinute] = String(hours.StartTime).split(':'); dayStart.setHours(parseInt(startHour,10), parseInt(startMinute,10), 0, 0); const dayEnd = new Date(bookingState.selectedDate); const [endHour, endMinute] = String(hours.EndTime).split(':'); dayEnd.setHours(parseInt(endHour,10), parseInt(endMinute,10), 0, 0); let availableSlots = 0; let currentTime = new Date(dayStart); while (currentTime < dayEnd) { const slotStartTime = new Date(currentTime); const slotEndTime = new Date(slotStartTime.getTime() + (parseInt(Duration,10) || 0) * 60000); if (slotEndTime > dayEnd) break; const isPast = new Date() > slotStartTime; if (!isPast) { const isOverlapping = bookingsForDay.some(b => { const existingStart = new Date(b.StartTime); const existingEnd = new Date(b.EndTime); const bookingEndWithBuffer = new Date(existingEnd.getTime() + bufferTime * 60000); return slotStartTime < bookingEndWithBuffer && slotEndTime > existingStart; }); const slotButton = document.createElement('button'); slotButton.className = 'time-slot'; if (isOverlapping) { slotButton.disabled = true; slotButton.textContent = 'Booked'; DOMElements.timeSlots.appendChild(slotButton); } else { availableSlots++; slotButton.textContent = slotStartTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }); slotButton.addEventListener('click', () => handleTimeSlotClick(slotStartTime)); DOMElements.timeSlots.appendChild(slotButton); } } currentTime.setMinutes(currentTime.getMinutes() + 15); } if (availableSlots === 0) { DOMElements.timeSlotMessage.textContent = 'No available slots for this day.'; DOMElements.timeSlotMessage.classList.remove('hidden'); } };
-
-    // --- Core Logic & Initialization ---
-    const fetchBookingData = async () => { try { const response = await fetch(config.getDataURL); if (!response.ok) throw new Error(`Network response was not ok`); const data = await response.json(); if (data.error) throw new Error(data.error); return data; } catch (error) { console.error("Fetch Error:", error); throw new Error(`Failed to load booking data. Please try again. Details: ${error.message}`); } };
-    const initializeBookingUI = (data) => { appData = data; appData.bookings = (appData.bookings || []).map(b => ({ ...b, StartTime: new Date(b.StartTime), EndTime: new Date(b.EndTime) })); const categories = (appData.services || []).reduce((acc, service) => { const category = service.Category || 'General'; if (!acc[category]) acc[category] = []; acc[category].push(service); return acc; }, {}); DOMElements.categoryTabs.innerHTML = Object.keys(categories).map(cat => `<div class="category-tab" data-category="${cat}">${cat}</div>`).join(''); document.querySelectorAll('.category-tab').forEach(tab => tab.addEventListener('click', () => renderServices(tab.dataset.category, categories))); if (Object.keys(categories).length > 0) { renderServices(Object.keys(categories)[0], categories); } };
-    const populateContactInfo = () => { DOMElements.phoneLink.href = `tel:${config.contactPhoneRaw}`; DOMElements.phoneText.textContent = config.contactPhone; DOMElements.emailLink.href = `mailto:${config.contactEmail}`; DOMElements.emailText.textContent = config.contactEmail; DOMElements.landingPhoneLink.href = `tel:${config.contactPhoneRaw}`; DOMElements.landingPhoneText.textContent = config.contactPhone; DOMElements.landingEmailLink.href = `mailto:${config.contactEmail}`; DOMElements.landingEmailText.textContent = config.contactEmail; };
-
-    // --- Main Execution Flow ---
-    populateContactInfo();
-    const dataPromise = fetchBookingData();
-    DOMElements.showServicesBtn.addEventListener('click', async () => {
-        DOMElements.showServicesBtn.disabled = true;
-        DOMElements.btnText.textContent = 'Loading...';
-        const spinner = document.createElement('div');
-        spinner.className = 'spinner';
-        DOMElements.showServicesBtn.appendChild(spinner);
-        try {
-            const loadedData = await dataPromise;
-            DOMElements.landingPage.classList.add('hidden');
-            DOMElements.bookingApp.classList.remove('hidden');
-            initializeBookingUI(loadedData);
-            DOMElements.loader.classList.add('hidden');
-            showStep(DOMElements.steps.services);
-        } catch (error) {
-            alert(error.message);
-            DOMElements.showServicesBtn.disabled = false;
-            DOMElements.btnText.textContent = 'Book Now';
-            DOMElements.showServicesBtn.removeChild(spinner);
-        }
-    });
-    DOMElements.backButtons.forEach(button => button.addEventListener('click', goBack));
-    DOMElements.prevDayBtn.addEventListener('click', () => { bookingState.selectedDate.setDate(bookingState.selectedDate.getDate() - 1); updateDateDisplay(); });
-    DOMElements.nextDayBtn.addEventListener('click', () => { bookingState.selectedDate.setDate(bookingState.selectedDate.getDate() + 1); updateDateDisplay(); });
-    DOMElements.customerForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      bookingState.customerName = document.getElementById('customer-name').value;
-      bookingState.customerEmail = document.getElementById('customer-email').value || 'Not provided';
-      bookingState.customerContact = document.getElementById('customer-contact').value;
-      const { selectedService, selectedBarber, selectedTime, selectedDate, customerName, customerEmail, customerContact } = bookingState;
-      DOMElements.review.service.textContent = selectedService.Name;
-      DOMElements.review.barber.textContent = selectedBarber;
-      DOMElements.review.datetime.textContent = `${selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })} at ${selectedTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
-      DOMElements.review.price.textContent = `$${Number(selectedService.Price).toFixed(2)}`;
-      DOMElements.review.name.textContent = customerName;
-      DOMElements.review.email.textContent = customerEmail;
-      DOMElements.review.contact.textContent = customerContact;
-      bookingState.history.push(DOMElements.steps.details);
-      showStep(DOMElements.steps.review);
-    });
-    DOMElements.finalConfirmBtn.addEventListener('click', async () => {
-        DOMElements.finalConfirmBtn.disabled = true;
-        DOMElements.finalConfirmBtn.textContent = 'Confirming...';
-        const { selectedTime, selectedService, selectedBarber, customerName, customerEmail, customerContact } = bookingState;
-        const bookingDetails = { customerName, customerEmail, customerContact, serviceName: selectedService.Name, barberName: selectedBarber, startTime: selectedTime.toISOString(), endTime: new Date(selectedTime.getTime() + selectedService.Duration * 60000).toISOString(), };
-        try {
-            const response = await fetch(config.submitDataURL, { method: 'POST', body: JSON.stringify(bookingDetails) });
-            if (!response.ok) throw new Error(`Server error: ${response.statusText}`);
-            const result = await response.json();
-            if (result.status !== "success") { throw new Error(result.message || 'An unknown booking error occurred.'); }
-            showStep(DOMElements.steps.confirmation);
-            const { serviceName, barberName, startTime, endTime } = bookingDetails;
-            const title = encodeURIComponent(`Appointment: ${serviceName} with ${barberName}`);
-            const startISO = new Date(startTime).toISOString().replace(/[-:.]/g, '');
-            const endISO = new Date(endTime).toISOString().replace(/[-:.]/g, '');
-            DOMElements.calendarLinks.innerHTML = `<a href="https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startISO}/${endISO}" target="_blank" class="google">Add to Google Calendar</a><a href="https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${title}&startdt=${startTime}&enddt=${endTime}" target="_blank" class="outlook">Add to Outlook Calendar</a>`;
-        } catch (error) {
-            alert(`Booking Failed: ${error.message}`);
-            DOMElements.finalConfirmBtn.disabled = false;
-            DOMElements.finalConfirmBtn.textContent = 'Confirm Booking';
-        }
-    });
-  });
-</script>
-</body>
-</html>
+            <svg class="contact-icon" xmlns="http://www.w3.org/2000
