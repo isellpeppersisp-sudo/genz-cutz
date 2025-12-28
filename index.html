@@ -563,7 +563,7 @@
           <div class="form-grid">
             <div class="form-group"><label for="customer-name">Full Name</label><input type="text" id="customer-name" required placeholder="John Doe"></div>
             <div class="form-group"><label for="customer-email">Email (Optional)</label><input type="email" id="customer-email" placeholder="john@example.com"></div>
-            <div class="form-group"><label for="customer-contact">Contact Number</label><input type="tel" id="customer-contact" required placeholder="(555) 000-0000"></div>
+            <div class="form-group"><label for="customer-contact">Contact Number</label><input type="tel" id="customer-contact" required placeholder="(868) 000-0000"></div>
             <div class="form-group"><label for="customer-dob">Date of Birth (Optional)</label><input type="date" id="customer-dob"></div>
           </div>
           <button type="submit" id="submit-booking" class="btn-submit">Proceed to Review</button>
@@ -682,6 +682,27 @@
     const updateDateDisplay = () => { DOMElements.currentDateEl.textContent = bookingState.selectedDate.toLocaleDateString('en-US', { weekday: 'short', month: 'long', day: 'numeric' }); const today = new Date(); today.setHours(0,0,0,0); const selectedMidnight = new Date(bookingState.selectedDate); selectedMidnight.setHours(0,0,0,0); DOMElements.prevDayBtn.disabled = (selectedMidnight <= today); generateTimeSlots(); };
     const generateTimeSlots = () => { DOMElements.timeSlots.innerHTML = ''; DOMElements.timeSlotMessage.classList.add('hidden'); if (!bookingState.selectedService || !bookingState.selectedBarber) return; const dayOfWeek = bookingState.selectedDate.toLocaleDateString('en-US', { weekday: 'long' }); const hours = appData.openingHours.find(h => h.Day === dayOfWeek && Array.isArray(h.BarberName) && h.BarberName.includes(bookingState.selectedBarber)); if (!hours || hours.IsClosed) { DOMElements.timeSlotMessage.textContent = `Sorry, ${bookingState.selectedBarber} is unavailable on this day.`; DOMElements.timeSlotMessage.classList.remove('hidden'); return; } const d = bookingState.selectedDate; const selectedDay = d.getDate(), selectedMonth = d.getMonth(), selectedYear = d.getFullYear(); const bookingsForDay = appData.bookings.filter(b => { if (b.BarberName !== bookingState.selectedBarber) return false; const bookingDate = new Date(b.StartTime); return bookingDate.getDate() === selectedDay && bookingDate.getMonth() === selectedMonth && bookingDate.getFullYear() === selectedYear; }); const { Duration } = bookingState.selectedService; const bufferTime = parseInt(appData.settings.bufferTime) || 0; const dayStart = new Date(bookingState.selectedDate); const [startHour, startMinute] = String(hours.StartTime).split(':'); dayStart.setHours(parseInt(startHour,10), parseInt(startMinute,10), 0, 0); const dayEnd = new Date(bookingState.selectedDate); const [endHour, endMinute] = String(hours.EndTime).split(':'); dayEnd.setHours(parseInt(endHour,10), parseInt(endMinute,10), 0, 0); let availableSlots = 0; let currentTime = new Date(dayStart); while (currentTime < dayEnd) { const slotStartTime = new Date(currentTime); const slotEndTime = new Date(slotStartTime.getTime() + (parseInt(Duration,10) || 0) * 60000); if (slotEndTime > dayEnd) break; const isPast = new Date() > slotStartTime; if (!isPast) { const isOverlapping = bookingsForDay.some(b => { const existingStart = new Date(b.StartTime); const existingEnd = new Date(b.EndTime); const bookingEndWithBuffer = new Date(existingEnd.getTime() + bufferTime * 60000); return slotStartTime < bookingEndWithBuffer && slotEndTime > existingStart; }); const slotButton = document.createElement('button'); slotButton.className = 'time-slot'; if (isOverlapping) { slotButton.disabled = true; slotButton.textContent = 'Booked'; DOMElements.timeSlots.appendChild(slotButton); } else { availableSlots++; slotButton.textContent = slotStartTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }); slotButton.addEventListener('click', () => handleTimeSlotClick(slotStartTime)); DOMElements.timeSlots.appendChild(slotButton); } } currentTime.setMinutes(currentTime.getMinutes() + 15); } if (availableSlots === 0) { DOMElements.timeSlotMessage.textContent = 'No available slots for this day.'; DOMElements.timeSlotMessage.classList.remove('hidden'); } };
 
+    // --- NEW PHONE FORMATTER FOR TRINIDAD & TOBAGO ---
+    const formatPhoneNumberTT = (input) => {
+        if (!input) return input;
+        
+        // 1. Remove non-numeric chars (spaces, dashes, parentheses)
+        let cleaned = input.replace(/\D/g, '');
+
+        // 2. Logic for 868
+        // If 7 digits (e.g. 3611369), add 868 prefix
+        if (cleaned.length === 7) {
+            return '868' + cleaned;
+        }
+        // If 11 digits starting with 1868, remove leading 1
+        if (cleaned.length === 11 && cleaned.startsWith('1868')) {
+            return cleaned.substring(1);
+        }
+        // If 10 digits (e.g. 8683611369), keep it.
+        // If weird length, just return the sanitized numbers.
+        return cleaned;
+    };
+
     // --- Core Logic & Initialization ---
     const fetchBookingData = async () => { try { const response = await fetch(config.getDataURL); if (!response.ok) throw new Error(`Network response was not ok`); const data = await response.json(); if (data.error) throw new Error(data.error); return data; } catch (error) { console.error("Fetch Error:", error); throw new Error(`Failed to load booking data. Please try again. Details: ${error.message}`); } };
     const initializeBookingUI = (data) => { appData = data; appData.bookings = (appData.bookings || []).map(b => ({ ...b, StartTime: new Date(b.StartTime), EndTime: new Date(b.EndTime) })); const categories = (appData.services || []).reduce((acc, service) => { const category = service.Category || 'General'; if (!acc[category]) acc[category] = []; acc[category].push(service); return acc; }, {}); DOMElements.categoryTabs.innerHTML = Object.keys(categories).map(cat => `<div class="category-tab" data-category="${cat}">${cat}</div>`).join(''); document.querySelectorAll('.category-tab').forEach(tab => tab.addEventListener('click', () => renderServices(tab.dataset.category, categories))); if (Object.keys(categories).length > 0) { renderServices(Object.keys(categories)[0], categories); } };
@@ -733,17 +754,19 @@
       bookingState.history.push(DOMElements.steps.details);
       showStep(DOMElements.steps.review);
     });
+    
+    // --- UPDATED SUBMIT LOGIC WITH PHONE FORMATTING ---
     DOMElements.finalConfirmBtn.addEventListener('click', async () => {
         DOMElements.finalConfirmBtn.disabled = true;
         DOMElements.finalConfirmBtn.textContent = 'Confirming...';
         const { selectedTime, selectedService, selectedBarber, customerName, customerEmail, customerContact, customerDob } = bookingState;
         
-        // Include DOB in the payload
+        // Include DOB in the payload AND FORMAT PHONE
         const bookingDetails = { 
             customerName, 
             customerEmail, 
-            customerContact, 
-            dateOfBirth: customerDob, // New Field
+            customerContact: formatPhoneNumberTT(customerContact), // <--- FORMAT APPLIED HERE
+            dateOfBirth: customerDob,
             serviceName: selectedService.Name, 
             barberName: selectedBarber, 
             startTime: selectedTime.toISOString(), 
