@@ -132,13 +132,8 @@
       display: flex;
       justify-content: center;
       gap: 1.5rem;
-      /* removed global margin-bottom here to allow reuse in header */
     }
-
-    /* Specific margin for landing page only */
-    #landing-page .social-links {
-        margin-bottom: 2.5rem;
-    }
+    #landing-page .social-links { margin-bottom: 2.5rem; }
     
     .social-btn {
       color: var(--text-muted);
@@ -149,17 +144,8 @@
       align-items: center;
       justify-content: center;
     }
-    
-    .social-btn:hover {
-      color: var(--brand-green);
-      transform: translateY(-3px);
-    }
-    
-    .social-btn svg {
-      width: 100%;
-      height: 100%;
-      fill: currentColor;
-    }
+    .social-btn:hover { color: var(--brand-green); transform: translateY(-3px); }
+    .social-btn svg { width: 100%; height: 100%; fill: currentColor; }
 
     /* --- APP LAYOUT --- */
     #booking-app {
@@ -183,20 +169,9 @@
       height: var(--header-height);
     }
     
-    /* Header Right Side Grouping */
-    .header-actions {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-    }
-    
-    /* Socials inside Header */
-    .universal-header .social-links {
-        gap: 1rem; /* Tighter gap in header */
-    }
-    .universal-header .social-btn {
-        width: 20px; height: 20px; /* Smaller icons in header */
-    }
+    .header-actions { display: flex; align-items: center; gap: 1.5rem; }
+    .universal-header .social-links { gap: 1rem; }
+    .universal-header .social-btn { width: 20px; height: 20px; }
 
     .logo-container { display: flex; align-items: center; gap: 0.8rem; }
     #main-logo { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--brand-green); }
@@ -216,7 +191,7 @@
     .step-header h3 { font-size: 2rem; margin-bottom: 0.5rem; color: #fff; line-height: 1.1; }
     .step-header p { color: var(--text-muted); font-size: 1rem; }
 
-    /* Summary Sidebar (The "Receipt" Look) */
+    /* Summary Sidebar */
     .summary-panel {
       background: var(--bg-surface);
       border-left: 1px solid var(--border-subtle);
@@ -227,7 +202,6 @@
       display: flex;
       flex-direction: column;
     }
-    
     .summary-item { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-subtle); }
     .summary-item:last-of-type { border-bottom: none; margin-top: auto; padding-top: 1.5rem; border-top: 2px dashed var(--border-subtle); }
     .summary-item h4 { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; font-family: 'Inter', sans-serif; letter-spacing: 0; font-weight: 500; text-transform: uppercase; }
@@ -237,15 +211,7 @@
     #summary-price { font-size: 2.5rem; font-weight: 700; color: var(--brand-green); }
 
     /* --- COMPONENTS --- */
-
-    /* Tabs - UPDATED TO WRAP */
-    .category-tabs { 
-      display: flex; 
-      flex-wrap: wrap; /* Changed from overflow to wrap */
-      gap: 0.8rem; 
-      margin-bottom: 2rem; 
-    }
-    
+    .category-tabs { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 2rem; }
     .category-tab {
       padding: 0.7rem 1.2rem;
       background: var(--bg-surface-2);
@@ -261,13 +227,7 @@
     .category-tab:hover { background: #2d323b; color: #fff; }
     .category-tab.active { background: #fff; color: #000; border-color: #fff; }
 
-    /* Cards */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-    
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
     .selectable-card {
       background: var(--bg-surface-2);
       border-radius: var(--radius-lg);
@@ -278,11 +238,7 @@
       display: flex; flex-direction: column;
       position: relative;
     }
-    
-    .selectable-card:active {
-      transform: scale(0.98);
-      border-color: var(--brand-green);
-    }
+    .selectable-card:active { transform: scale(0.98); border-color: var(--brand-green); }
 
     .card-image {
       height: 180px;
@@ -292,20 +248,16 @@
       background-color: #1a1a1a;
       border-bottom: 1px solid var(--border-subtle);
     }
-    
     .card-content { padding: 1.25rem; display: flex; flex-direction: column; flex-grow: 1; }
     .card-content h3 { font-size: 1.2rem; margin-bottom: 0.4rem; font-family: 'Inter', sans-serif; font-weight: 700; }
     .card-content p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.4; flex-grow: 1; margin-bottom: 1rem; }
-    
     .service-details { margin-top: auto; display: flex; justify-content: space-between; align-items: center; width: 100%; }
     .service-details .price { color: var(--brand-green); font-weight: 700; font-size: 1.2rem; }
-    .card-action-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--brand-green); margin-top: 1rem; text-align: right; opacity: 1; /* Always visible on mobile */ }
+    .card-action-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--brand-green); margin-top: 1rem; text-align: right; opacity: 1; }
 
-    /* Barber Card Specifics */
     .barber-card .card-content { text-align: center; justify-content: center; padding: 2.5rem 1.5rem; }
     .barber-card h3 { font-size: 1.3rem; }
 
-    /* Date & Time */
     .date-selector {
       background: var(--bg-surface-2);
       padding: 1rem;
@@ -314,11 +266,7 @@
       margin-bottom: 1.5rem;
       border: 1px solid var(--border-subtle);
     }
-    .date-nav { 
-        background: none; border: 1px solid var(--border-subtle); 
-        color: var(--text-main); padding: 0.8rem 1.2rem; /* Larger touch target */
-        border-radius: 8px; cursor: pointer; transition: 0.3s; 
-    }
+    .date-nav { background: none; border: 1px solid var(--border-subtle); color: var(--text-main); padding: 0.8rem 1.2rem; border-radius: 8px; cursor: pointer; transition: 0.3s; }
     .date-nav:active:not(:disabled) { border-color: var(--brand-green); color: var(--brand-green); }
     .date-nav:disabled { opacity: 0.3; }
     #current-date { font-weight: 700; font-size: 0.95rem; text-align: center; }
@@ -333,16 +281,11 @@
       cursor: pointer;
       font-weight: 600;
       font-size: 0.9rem;
-      min-height: 44px; /* Touch target size */
+      min-height: 44px;
     }
-    .time-slot:active:not(:disabled) {
-      background: var(--brand-green);
-      color: #000;
-      border-color: var(--brand-green);
-    }
+    .time-slot:active:not(:disabled) { background: var(--brand-green); color: #000; border-color: var(--brand-green); }
     .time-slot:disabled { opacity: 0.3; text-decoration: line-through; cursor: not-allowed; }
 
-    /* Forms */
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
     .form-group label { display: block; margin-bottom: 0.6rem; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
     .form-group input {
@@ -353,11 +296,17 @@
       border-radius: var(--radius-sm);
       color: #fff;
       font-family: 'Inter', sans-serif;
-      font-size: 16px; /* Prevents iOS zoom */
+      font-size: 16px;
       transition: 0.3s;
       appearance: none;
     }
     .form-group input:focus { outline: none; border-color: var(--brand-green); background: #2a303b; }
+
+    /* Fix for Date Input Color Scheme on Dark Mode */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+        cursor: pointer;
+    }
 
     .btn-submit {
       width: 100%;
@@ -374,7 +323,6 @@
     }
     .btn-submit:active:not(:disabled) { background: var(--brand-green); transform: scale(0.98); }
 
-    /* Review & Confirm */
     #review-summary { background: var(--bg-surface-2); padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); margin-bottom: 2rem; }
     #review-summary p { display: flex; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px dashed var(--border-subtle); font-size: 0.95rem; }
     #review-summary p:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
@@ -385,7 +333,6 @@
     .calendar-links { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
     .calendar-links a { padding: 1rem; border-radius: 50px; text-decoration: none; color: #fff; font-weight: 600; background: rgba(255,255,255,0.1); width: 100%; text-align: center; }
 
-    /* Navigation Back Button */
     .btn-back {
       background: transparent; border: none; color: var(--text-muted);
       cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem;
@@ -393,7 +340,6 @@
     }
     .btn-back:hover { color: #fff; }
 
-    /* Loader */
     .loader {
       width: 48px; height: 48px;
       border: 5px solid #FFF;
@@ -408,40 +354,29 @@
     .spinner { width: 1em; height: 1em; border: 2px solid rgba(0,0,0,0.3); border-left-color: #000; border-radius: 50%; animation: rotation 0.8s linear infinite; margin-left: 10px; }
     .error-message { background: rgba(255, 80, 80, 0.1); border: 1px solid #ff5050; color: #ff5050; padding: 1rem; border-radius: var(--radius-sm); text-align: center; }
 
-    /* --- RESPONSIVE OPTIMIZATIONS --- */
     @media (max-width: 1024px) {
       .booking-dashboard { grid-template-columns: 1fr; }
-      .summary-panel { display: none; } /* Hidden on mobile/tablet to save space */
+      .summary-panel { display: none; }
       .steps-panel { padding: 2rem 1.5rem; }
-      
-      /* Mobile Header Tweaks */
-      .universal-header { padding: 0.5rem 1rem; } /* Slightly tighter padding */
-      .universal-header #contact-info span { display: none; } /* Hide email/phone text */
+      .universal-header { padding: 0.5rem 1rem; }
+      .universal-header #contact-info span { display: none; }
       .universal-header #contact-info { gap: 0.5rem; }
       .universal-header #contact-info a { padding: 0.5rem; border-radius: 50%; background: transparent; }
       .universal-header #contact-info a:active { background: rgba(255,255,255,0.1); }
       .universal-header #contact-info .contact-icon { width: 1.4em; height: 1.4em; color: #fff; }
-      .header-actions { gap: 0.5rem; } /* Reduce gap between social and contact on mobile */
+      .header-actions { gap: 0.5rem; }
       .universal-header .social-links { gap: 0.5rem; }
-
-      /* Typography & Spacing */
       #landing-page h1 { font-size: 2.2rem; }
       .step-header h3 { font-size: 1.8rem; }
-      .card-grid { grid-template-columns: 1fr; } /* Full width cards */
+      .card-grid { grid-template-columns: 1fr; }
       .card-image { height: 200px; }
-      .form-grid { grid-template-columns: 1fr; } /* Stack form inputs */
-      
-      /* Landing adjustments */
+      .form-grid { grid-template-columns: 1fr; }
       #landing-logo { width: 120px; height: 120px; }
       .tagline { margin-bottom: 2rem; }
-      
-      /* Better confirmation links */
       .calendar-links { width: 100%; }
     }
     
-    @media (max-width: 480px) {
-        .main-title { display: none; } /* On very small screens, hide text to fit icons */
-    }
+    @media (max-width: 480px) { .main-title { display: none; } }
     
     @media (min-width: 1025px) {
         .card-action-label { opacity: 0; transform: translateX(-10px); transition: 0.3s; }
@@ -573,6 +508,7 @@
             <div class="form-group"><label for="customer-name">Full Name</label><input type="text" id="customer-name" required placeholder="John Doe"></div>
             <div class="form-group"><label for="customer-email">Email (Optional)</label><input type="email" id="customer-email" placeholder="john@example.com"></div>
             <div class="form-group"><label for="customer-contact">Contact Number</label><input type="tel" id="customer-contact" required placeholder="(555) 000-0000"></div>
+            <div class="form-group"><label for="customer-dob">Date of Birth (Optional)</label><input type="date" id="customer-dob"></div>
           </div>
           <button type="submit" id="submit-booking" class="btn-submit">Proceed to Review</button>
         </form>
@@ -640,7 +576,7 @@
   };
 
   document.addEventListener('DOMContentLoaded', () => {
-    let bookingState = { selectedDate: new Date(), selectedService: null, selectedBarber: null, selectedTime: null, customerName: '', customerEmail: '', customerContact: '', history: [] };
+    let bookingState = { selectedDate: new Date(), selectedService: null, selectedBarber: null, selectedTime: null, customerName: '', customerEmail: '', customerContact: '', customerDob: '', history: [] };
 
     const DOMElements = {
       landingPage: document.getElementById('landing-page'),
@@ -727,6 +663,9 @@
       bookingState.customerName = document.getElementById('customer-name').value;
       bookingState.customerEmail = document.getElementById('customer-email').value || 'Not provided';
       bookingState.customerContact = document.getElementById('customer-contact').value;
+      // Capture Date of Birth
+      bookingState.customerDob = document.getElementById('customer-dob').value; 
+      
       const { selectedService, selectedBarber, selectedTime, selectedDate, customerName, customerEmail, customerContact } = bookingState;
       DOMElements.review.service.textContent = selectedService.Name;
       DOMElements.review.barber.textContent = selectedBarber;
@@ -741,8 +680,19 @@
     DOMElements.finalConfirmBtn.addEventListener('click', async () => {
         DOMElements.finalConfirmBtn.disabled = true;
         DOMElements.finalConfirmBtn.textContent = 'Confirming...';
-        const { selectedTime, selectedService, selectedBarber, customerName, customerEmail, customerContact } = bookingState;
-        const bookingDetails = { customerName, customerEmail, customerContact, serviceName: selectedService.Name, barberName: selectedBarber, startTime: selectedTime.toISOString(), endTime: new Date(selectedTime.getTime() + selectedService.Duration * 60000).toISOString(), };
+        const { selectedTime, selectedService, selectedBarber, customerName, customerEmail, customerContact, customerDob } = bookingState;
+        
+        // Include DOB in the payload
+        const bookingDetails = { 
+            customerName, 
+            customerEmail, 
+            customerContact, 
+            dateOfBirth: customerDob, // New Field
+            serviceName: selectedService.Name, 
+            barberName: selectedBarber, 
+            startTime: selectedTime.toISOString(), 
+            endTime: new Date(selectedTime.getTime() + selectedService.Duration * 60000).toISOString(), 
+        };
         try {
             const response = await fetch(config.submitDataURL, { method: 'POST', body: JSON.stringify(bookingDetails) });
             if (!response.ok) throw new Error(`Server error: ${response.statusText}`);
