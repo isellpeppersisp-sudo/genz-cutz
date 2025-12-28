@@ -680,7 +680,85 @@
     const renderServices = (category, categories) => { document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active')); document.querySelector(`.category-tab[data-category="${category}"]`).classList.add('active'); DOMElements.serviceList.innerHTML = categories[category].map(service => `<div class="selectable-card service-card">${service.ImageURL ? `<div class="card-image" style="background-image: url('${service.ImageURL}')"></div>` : ''}<div class="card-content"><h3>${service.Name}</h3><p>${service.Description || ''}</p><div class="service-details"><span>${service.Duration} min</span><span class="price">$${Number(service.Price).toFixed(2)}</span></div><div class="card-action-label">Select Service →</div></div></div>`).join(''); document.querySelectorAll('.service-card').forEach((card, i) => card.addEventListener('click', () => handleServiceClick(categories[category][i]))); };
     const renderBarbers = (barbers) => { DOMElements.barberList.innerHTML = barbers.map(barber => `<div class="selectable-card barber-card"><div class="card-content"><h3>${barber}</h3><div class="card-action-label">Select Expert →</div></div></div>`).join(''); document.querySelectorAll('.barber-card').forEach((card, i) => card.addEventListener('click', () => handleBarberClick(barbers[i]))); };
     const updateDateDisplay = () => { DOMElements.currentDateEl.textContent = bookingState.selectedDate.toLocaleDateString('en-US', { weekday: 'short', month: 'long', day: 'numeric' }); const today = new Date(); today.setHours(0,0,0,0); const selectedMidnight = new Date(bookingState.selectedDate); selectedMidnight.setHours(0,0,0,0); DOMElements.prevDayBtn.disabled = (selectedMidnight <= today); generateTimeSlots(); };
-    const generateTimeSlots = () => { DOMElements.timeSlots.innerHTML = ''; DOMElements.timeSlotMessage.classList.add('hidden'); if (!bookingState.selectedService || !bookingState.selectedBarber) return; const dayOfWeek = bookingState.selectedDate.toLocaleDateString('en-US', { weekday: 'long' }); const hours = appData.openingHours.find(h => h.Day === dayOfWeek && Array.isArray(h.BarberName) && h.BarberName.includes(bookingState.selectedBarber)); if (!hours || hours.IsClosed) { DOMElements.timeSlotMessage.textContent = `Sorry, ${bookingState.selectedBarber} is unavailable on this day.`; DOMElements.timeSlotMessage.classList.remove('hidden'); return; } const d = bookingState.selectedDate; const selectedDay = d.getDate(), selectedMonth = d.getMonth(), selectedYear = d.getFullYear(); const bookingsForDay = appData.bookings.filter(b => { if (b.BarberName !== bookingState.selectedBarber) return false; const bookingDate = new Date(b.StartTime); return bookingDate.getDate() === selectedDay && bookingDate.getMonth() === selectedMonth && bookingDate.getFullYear() === selectedYear; }); const { Duration } = bookingState.selectedService; const bufferTime = parseInt(appData.settings.bufferTime) || 0; const dayStart = new Date(bookingState.selectedDate); const [startHour, startMinute] = String(hours.StartTime).split(':'); dayStart.setHours(parseInt(startHour,10), parseInt(startMinute,10), 0, 0); const dayEnd = new Date(bookingState.selectedDate); const [endHour, endMinute] = String(hours.EndTime).split(':'); dayEnd.setHours(parseInt(endHour,10), parseInt(endMinute,10), 0, 0); let availableSlots = 0; let currentTime = new Date(dayStart); while (currentTime < dayEnd) { const slotStartTime = new Date(currentTime); const slotEndTime = new Date(slotStartTime.getTime() + (parseInt(Duration,10) || 0) * 60000); if (slotEndTime > dayEnd) break; const isPast = new Date() > slotStartTime; if (!isPast) { const isOverlapping = bookingsForDay.some(b => { const existingStart = new Date(b.StartTime); const existingEnd = new Date(b.EndTime); const bookingEndWithBuffer = new Date(existingEnd.getTime() + bufferTime * 60000); return slotStartTime < bookingEndWithBuffer && slotEndTime > existingStart; }); const slotButton = document.createElement('button'); slotButton.className = 'time-slot'; if (isOverlapping) { slotButton.disabled = true; slotButton.textContent = 'Booked'; DOMElements.timeSlots.appendChild(slotButton); } else { availableSlots++; slotButton.textContent = slotStartTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }); slotButton.addEventListener('click', () => handleTimeSlotClick(slotStartTime)); DOMElements.timeSlots.appendChild(slotButton); } } currentTime.setMinutes(currentTime.getMinutes() + 15); } if (availableSlots === 0) { DOMElements.timeSlotMessage.textContent = 'No available slots for this day.'; DOMElements.timeSlotMessage.classList.remove('hidden'); } };
+    
+    // --- UPDATED LOGIC HERE: CHECK STATUS ---
+    const generateTimeSlots = () => { 
+        DOMElements.timeSlots.innerHTML = ''; 
+        DOMElements.timeSlotMessage.classList.add('hidden'); 
+        if (!bookingState.selectedService || !bookingState.selectedBarber) return; 
+        
+        const dayOfWeek = bookingState.selectedDate.toLocaleDateString('en-US', { weekday: 'long' }); 
+        const hours = appData.openingHours.find(h => h.Day === dayOfWeek && Array.isArray(h.BarberName) && h.BarberName.includes(bookingState.selectedBarber)); 
+        if (!hours || hours.IsClosed) { 
+            DOMElements.timeSlotMessage.textContent = `Sorry, ${bookingState.selectedBarber} is unavailable on this day.`; 
+            DOMElements.timeSlotMessage.classList.remove('hidden'); 
+            return; 
+        } 
+        
+        const d = bookingState.selectedDate; 
+        const selectedDay = d.getDate(), selectedMonth = d.getMonth(), selectedYear = d.getFullYear(); 
+        
+        // --- FILTER CHANGE START ---
+        const bookingsForDay = appData.bookings.filter(b => { 
+            // 1. Check Barber
+            if (b.BarberName !== bookingState.selectedBarber) return false; 
+            
+            // 2. NEW STATUS CHECK:
+            // If status is Cancelled or Completed/Compeleted, do NOT block the slot
+            // We force to lowercase to handle any typo like 'Compeleted'
+            const status = (b.Status || "").toLowerCase();
+            if (status.includes("cancel") || status.includes("complet")) return false; 
+            
+            // 3. Check Date
+            const bookingDate = new Date(b.StartTime); 
+            return bookingDate.getDate() === selectedDay && bookingDate.getMonth() === selectedMonth && bookingDate.getFullYear() === selectedYear; 
+        }); 
+        // --- FILTER CHANGE END ---
+
+        const { Duration } = bookingState.selectedService; 
+        const bufferTime = parseInt(appData.settings.bufferTime) || 0; 
+        const dayStart = new Date(bookingState.selectedDate); 
+        const [startHour, startMinute] = String(hours.StartTime).split(':'); 
+        dayStart.setHours(parseInt(startHour,10), parseInt(startMinute,10), 0, 0); 
+        const dayEnd = new Date(bookingState.selectedDate); 
+        const [endHour, endMinute] = String(hours.EndTime).split(':'); 
+        dayEnd.setHours(parseInt(endHour,10), parseInt(endMinute,10), 0, 0); 
+        
+        let availableSlots = 0; 
+        let currentTime = new Date(dayStart); 
+        
+        while (currentTime < dayEnd) { 
+            const slotStartTime = new Date(currentTime); 
+            const slotEndTime = new Date(slotStartTime.getTime() + (parseInt(Duration,10) || 0) * 60000); 
+            if (slotEndTime > dayEnd) break; 
+            const isPast = new Date() > slotStartTime; 
+            if (!isPast) { 
+                const isOverlapping = bookingsForDay.some(b => { 
+                    const existingStart = new Date(b.StartTime); 
+                    const existingEnd = new Date(b.EndTime); 
+                    const bookingEndWithBuffer = new Date(existingEnd.getTime() + bufferTime * 60000); 
+                    return slotStartTime < bookingEndWithBuffer && slotEndTime > existingStart; 
+                }); 
+                const slotButton = document.createElement('button'); 
+                slotButton.className = 'time-slot'; 
+                if (isOverlapping) { 
+                    slotButton.disabled = true; 
+                    slotButton.textContent = 'Booked'; 
+                    DOMElements.timeSlots.appendChild(slotButton); 
+                } else { 
+                    availableSlots++; 
+                    slotButton.textContent = slotStartTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }); 
+                    slotButton.addEventListener('click', () => handleTimeSlotClick(slotStartTime)); 
+                    DOMElements.timeSlots.appendChild(slotButton); 
+                } 
+            } 
+            currentTime.setMinutes(currentTime.getMinutes() + 15); 
+        } 
+        if (availableSlots === 0) { 
+            DOMElements.timeSlotMessage.textContent = 'No available slots for this day.'; 
+            DOMElements.timeSlotMessage.classList.remove('hidden'); 
+        } 
+    };
 
     // --- NEW PHONE FORMATTER FOR TRINIDAD & TOBAGO ---
     const formatPhoneNumberTT = (input) => {
