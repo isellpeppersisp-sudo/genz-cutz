@@ -1,1367 +1,683 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-
   <title>Elite Kreative Cutz and Spa</title>
-
   
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
-
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
-
   
-
   <style>
-
     /* --- 1. MODERN VARIABLES --- */
-
     :root {
-
       /* Backgrounds */
-
       --bg-body: #0f1115;       /* Deep Gunmetal */
-
       --bg-surface: #181b21;    /* Lighter Gunmetal */
-
       --bg-surface-2: #22262e; /* Card Background */
-
       
-
       /* The "Green" You Requested */
-
       --brand-green: #00d285;   /* Vibrant Emerald */
-
       --brand-green-hover: #00b371;
-
       --brand-green-dim: rgba(0, 210, 133, 0.1);
-
       
-
       /* Text */
-
       --text-main: #ffffff;
-
       --text-muted: #9ca3af;
-
       
-
       /* Borders & Shadows */
-
       --border-subtle: rgba(255, 255, 255, 0.08);
-
       --glass-shadow: 0 20px 40px rgba(0,0,0,0.4);
-
       --radius-lg: 24px;
-
       --radius-sm: 12px;
-
       
-
       /* Mobile Spacing */
-
       --header-height: 70px;
-
     }
-
-
 
     * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
-
     
-
     body {
-
       font-family: 'Inter', sans-serif;
-
       background-color: var(--bg-body);
-
       color: var(--text-main);
-
       line-height: 1.6;
-
       /* Subtle mesh gradient background */
-
       background-image: radial-gradient(circle at 15% 50%, rgba(0, 210, 133, 0.08), transparent 25%), radial-gradient(circle at 85% 30%, rgba(0, 210, 133, 0.05), transparent 25%);
-
       min-height: 100vh;
-
       overflow-x: hidden; /* Prevent horizontal scroll */
-
     }
-
-
 
     /* Utility */
-
     .hidden { display: none !important; }
-
     h1, h2, h3 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
-
     button { font-family: 'Inter', sans-serif; }
 
-
-
     /* --- LANDING PAGE --- */
-
     #landing-page {
-
       height: 100vh; /* Fallback */
-
       height: 100dvh; /* Mobile browser fix */
-
       display: flex;
-
       flex-direction: column;
-
       justify-content: center;
-
       align-items: center;
-
       text-align: center;
-
       padding: 1.5rem;
-
       background: radial-gradient(circle at center, var(--bg-surface) 0%, var(--bg-body) 100%);
-
     }
-
-
 
     #landing-logo {
-
       width: 140px; height: 140px;
-
       border-radius: 50%;
-
       object-fit: cover;
-
       border: 4px solid var(--brand-green);
-
       margin-bottom: 2rem;
-
       box-shadow: 0 0 40px rgba(0, 210, 133, 0.2);
-
     }
-
-
 
     #landing-page h1 {
-
       font-size: 2.8rem;
-
       line-height: 1.1;
-
       margin-bottom: 0.5rem;
-
       background: linear-gradient(to right, #fff, #ccc);
-
       -webkit-background-clip: text;
-
       -webkit-text-fill-color: transparent;
-
     }
-
-
 
     .tagline {
-
       color: var(--text-muted);
-
       font-size: 1rem;
-
       max-width: 400px;
-
       margin-bottom: 2.5rem;
-
       font-weight: 300;
-
       padding: 0 1rem;
-
     }
-
-
 
     /* Modern Green Button */
-
     #show-services-btn {
-
       background: var(--brand-green);
-
       color: #000; /* High contrast black text on green */
-
       border: none;
-
       padding: 1.2rem 3rem;
-
       width: 100%;
-
       max-width: 300px;
-
       border-radius: 100px;
-
       font-size: 1.1rem;
-
       font-weight: 700;
-
       cursor: pointer;
-
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-
       box-shadow: 0 10px 30px rgba(0, 210, 133, 0.3);
-
       display: inline-flex; align-items: center; justify-content: center;
-
     }
-
     
-
     #show-services-btn:active { transform: scale(0.98); }
 
-
-
     /* Landing Contacts */
-
     .contact-info-container { display: flex; gap: 1rem; margin-bottom: 2rem; justify-content: center; flex-wrap: wrap; }
-
     .contact-info-container a {
-
       color: var(--text-muted); text-decoration: none;
-
       display: flex; align-items: center; gap: 0.5rem;
-
       font-size: 0.95rem; font-weight: 500;
-
       transition: 0.3s;
-
       padding: 0.5rem 1rem;
-
       border-radius: 50px;
-
       background: rgba(255,255,255,0.03);
-
     }
-
     .contact-info-container a:active { color: var(--brand-green); background: rgba(0, 210, 133, 0.1); }
-
     .contact-icon { width: 1.2em; height: 1.2em; fill: currentColor; }
 
-
-
     /* --- APP LAYOUT --- */
-
     #booking-app {
-
       max-width: 1600px;
-
       margin: 0 auto;
-
       min-height: 100vh;
-
       display: flex;
-
       flex-direction: column;
-
     }
-
-
 
     /* Header */
-
     .universal-header {
-
       padding: 1rem 1.5rem;
-
       display: flex;
-
       align-items: center;
-
       justify-content: space-between;
-
       border-bottom: 1px solid var(--border-subtle);
-
       background: rgba(15, 17, 21, 0.95);
-
       backdrop-filter: blur(10px);
-
       position: sticky; top: 0; z-index: 50;
-
       height: var(--header-height);
-
     }
-
-
 
     .logo-container { display: flex; align-items: center; gap: 0.8rem; }
-
     #main-logo { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--brand-green); }
-
     .main-title { font-size: 1.2rem; margin: 0; letter-spacing: 0.5px; white-space: nowrap; }
 
-
-
     /* Grid Layout */
-
     .booking-dashboard {
-
       display: grid;
-
       grid-template-columns: 1fr 380px; /* Content | Summary */
-
       flex-grow: 1;
-
     }
-
-
 
     /* Main Content Area */
-
     .steps-panel { padding: 3rem 4rem; }
-
     
-
     .step-header { margin-bottom: 2rem; }
-
     .step-header h3 { font-size: 2rem; margin-bottom: 0.5rem; color: #fff; line-height: 1.1; }
-
     .step-header p { color: var(--text-muted); font-size: 1rem; }
 
-
-
     /* Summary Sidebar (The "Receipt" Look) */
-
     .summary-panel {
-
       background: var(--bg-surface);
-
       border-left: 1px solid var(--border-subtle);
-
       padding: 3rem 2rem;
-
       position: sticky;
-
       top: var(--header-height);
-
       height: calc(100vh - var(--header-height));
-
       display: flex;
-
       flex-direction: column;
-
     }
-
     
-
     .summary-item { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-subtle); }
-
     .summary-item:last-of-type { border-bottom: none; margin-top: auto; padding-top: 1.5rem; border-top: 2px dashed var(--border-subtle); }
-
     .summary-item h4 { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; font-family: 'Inter', sans-serif; letter-spacing: 0; font-weight: 500; text-transform: uppercase; }
-
     .summary-item p { font-size: 1.1rem; font-weight: 600; color: #fff; }
-
     .summary-item p.placeholder { color: #555; font-weight: 400; font-style: italic; }
-
     .summary-item.active h4 { color: var(--brand-green); }
-
     #summary-price { font-size: 2.5rem; font-weight: 700; color: var(--brand-green); }
-
-
 
     /* --- COMPONENTS --- */
 
-
-
-    /* Tabs */
-
+    /* Tabs - UPDATED TO WRAP */
     .category-tabs { 
-
-      display: flex; gap: 0.8rem; margin-bottom: 2rem; 
-
-      overflow-x: auto; padding-bottom: 0.5rem; /* Scrollable horizontal on mobile */
-
-      -webkit-overflow-scrolling: touch;
-
-      scrollbar-width: none; 
-
+      display: flex; 
+      flex-wrap: wrap; /* Changed from overflow to wrap */
+      gap: 0.8rem; 
+      margin-bottom: 2rem; 
     }
-
-    .category-tabs::-webkit-scrollbar { display: none; }
-
     
-
     .category-tab {
-
       padding: 0.7rem 1.2rem;
-
       background: var(--bg-surface-2);
-
       color: var(--text-muted);
-
       border-radius: var(--radius-sm);
-
       cursor: pointer;
-
       font-weight: 600;
-
       white-space: nowrap;
-
       transition: all 0.3s;
-
       border: 1px solid transparent;
-
       font-size: 0.9rem;
-
     }
-
     .category-tab:hover { background: #2d323b; color: #fff; }
-
     .category-tab.active { background: #fff; color: #000; border-color: #fff; }
 
-
-
     /* Cards */
-
     .card-grid {
-
       display: grid;
-
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-
       gap: 1.5rem;
-
     }
-
     
-
     .selectable-card {
-
       background: var(--bg-surface-2);
-
       border-radius: var(--radius-lg);
-
       overflow: hidden;
-
       border: 1px solid var(--border-subtle);
-
       transition: transform 0.2s, border-color 0.2s;
-
       cursor: pointer;
-
       display: flex; flex-direction: column;
-
       position: relative;
-
     }
-
     
-
     .selectable-card:active {
-
       transform: scale(0.98);
-
       border-color: var(--brand-green);
-
     }
-
-
 
     .card-image {
-
       height: 180px;
-
       width: 100%;
-
       background-size: cover;
-
       background-position: center;
-
       background-color: #1a1a1a;
-
       border-bottom: 1px solid var(--border-subtle);
-
     }
-
     
-
     .card-content { padding: 1.25rem; display: flex; flex-direction: column; flex-grow: 1; }
-
     .card-content h3 { font-size: 1.2rem; margin-bottom: 0.4rem; font-family: 'Inter', sans-serif; font-weight: 700; }
-
     .card-content p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.4; flex-grow: 1; margin-bottom: 1rem; }
-
     
-
     .service-details { margin-top: auto; display: flex; justify-content: space-between; align-items: center; width: 100%; }
-
     .service-details .price { color: var(--brand-green); font-weight: 700; font-size: 1.2rem; }
-
     .card-action-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--brand-green); margin-top: 1rem; text-align: right; opacity: 1; /* Always visible on mobile */ }
 
-
-
     /* Barber Card Specifics */
-
     .barber-card .card-content { text-align: center; justify-content: center; padding: 2.5rem 1.5rem; }
-
     .barber-card h3 { font-size: 1.3rem; }
 
-
-
     /* Date & Time */
-
     .date-selector {
-
       background: var(--bg-surface-2);
-
       padding: 1rem;
-
       border-radius: var(--radius-sm);
-
       display: flex; justify-content: space-between; align-items: center;
-
       margin-bottom: 1.5rem;
-
       border: 1px solid var(--border-subtle);
-
     }
-
     .date-nav { 
-
         background: none; border: 1px solid var(--border-subtle); 
-
         color: var(--text-main); padding: 0.8rem 1.2rem; /* Larger touch target */
-
         border-radius: 8px; cursor: pointer; transition: 0.3s; 
-
     }
-
     .date-nav:active:not(:disabled) { border-color: var(--brand-green); color: var(--brand-green); }
-
     .date-nav:disabled { opacity: 0.3; }
-
     #current-date { font-weight: 700; font-size: 0.95rem; text-align: center; }
-
     
-
     #time-slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 0.8rem; }
-
     .time-slot {
-
       padding: 0.8rem 0.2rem;
-
       background: var(--bg-surface-2);
-
       border: 1px solid var(--border-subtle);
-
       color: #fff;
-
       border-radius: var(--radius-sm);
-
       cursor: pointer;
-
       font-weight: 600;
-
       font-size: 0.9rem;
-
       min-height: 44px; /* Touch target size */
-
     }
-
     .time-slot:active:not(:disabled) {
-
       background: var(--brand-green);
-
       color: #000;
-
       border-color: var(--brand-green);
-
     }
-
     .time-slot:disabled { opacity: 0.3; text-decoration: line-through; cursor: not-allowed; }
 
-
-
     /* Forms */
-
     .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-
     .form-group label { display: block; margin-bottom: 0.6rem; color: var(--text-muted); font-size: 0.9rem; font-weight: 500; }
-
     .form-group input {
-
       width: 100%;
-
       padding: 1rem;
-
       background: var(--bg-surface-2);
-
       border: 1px solid var(--border-subtle);
-
       border-radius: var(--radius-sm);
-
       color: #fff;
-
       font-family: 'Inter', sans-serif;
-
       font-size: 16px; /* Prevents iOS zoom */
-
       transition: 0.3s;
-
       appearance: none;
-
     }
-
     .form-group input:focus { outline: none; border-color: var(--brand-green); background: #2a303b; }
 
-
-
     .btn-submit {
-
       width: 100%;
-
       padding: 1.2rem;
-
       background: #fff;
-
       color: #000;
-
       font-weight: 800;
-
       border: none;
-
       border-radius: var(--radius-sm);
-
       font-size: 1.1rem;
-
       cursor: pointer;
-
       margin-top: 2rem;
-
       transition: 0.2s;
-
     }
-
     .btn-submit:active:not(:disabled) { background: var(--brand-green); transform: scale(0.98); }
 
-
-
     /* Review & Confirm */
-
     #review-summary { background: var(--bg-surface-2); padding: 1.5rem; border-radius: var(--radius-lg); border: 1px solid var(--border-subtle); margin-bottom: 2rem; }
-
     #review-summary p { display: flex; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px dashed var(--border-subtle); font-size: 0.95rem; }
-
     #review-summary p:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-
     #review-summary span { font-weight: 700; color: #fff; text-align: right; max-width: 60%; }
-
     
-
     #confirmation-step { text-align: center; padding: 2rem 0; }
-
     #confirmation-step h3 { color: var(--brand-green); font-size: 2.5rem; margin-bottom: 1rem; }
-
     .calendar-links { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
-
     .calendar-links a { padding: 1rem; border-radius: 50px; text-decoration: none; color: #fff; font-weight: 600; background: rgba(255,255,255,0.1); width: 100%; text-align: center; }
 
-
-
     /* Navigation Back Button */
-
     .btn-back {
-
       background: transparent; border: none; color: var(--text-muted);
-
       cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem;
-
       font-size: 0.9rem; padding: 0.5rem 0; margin-bottom: 0.5rem;
-
     }
-
     .btn-back:hover { color: #fff; }
 
-
-
     /* Loader */
-
     .loader {
-
       width: 48px; height: 48px;
-
       border: 5px solid #FFF;
-
       border-bottom-color: var(--brand-green);
-
       border-radius: 50%;
-
       display: inline-block;
-
       box-sizing: border-box;
-
       animation: rotation 1s linear infinite;
-
       margin: 5rem auto; display: block;
-
     }
-
     @keyframes rotation { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
     .spinner { width: 1em; height: 1em; border: 2px solid rgba(0,0,0,0.3); border-left-color: #000; border-radius: 50%; animation: rotation 0.8s linear infinite; margin-left: 10px; }
-
     .error-message { background: rgba(255, 80, 80, 0.1); border: 1px solid #ff5050; color: #ff5050; padding: 1rem; border-radius: var(--radius-sm); text-align: center; }
 
-
-
     /* --- RESPONSIVE OPTIMIZATIONS --- */
-
     @media (max-width: 1024px) {
-
       .booking-dashboard { grid-template-columns: 1fr; }
-
       .summary-panel { display: none; } /* Hidden on mobile/tablet to save space */
-
       .steps-panel { padding: 2rem 1.5rem; }
-
       
-
       /* Mobile Header Tweaks */
-
       .universal-header #contact-info span { display: none; } /* Hide email/phone text */
-
       .universal-header #contact-info { gap: 0.5rem; }
-
       .universal-header #contact-info a { padding: 0.5rem; border-radius: 50%; background: transparent; }
-
       .universal-header #contact-info a:active { background: rgba(255,255,255,0.1); }
-
       .universal-header #contact-info .contact-icon { width: 1.4em; height: 1.4em; color: #fff; }
 
-
-
       /* Typography & Spacing */
-
       #landing-page h1 { font-size: 2.2rem; }
-
       .step-header h3 { font-size: 1.8rem; }
-
       .card-grid { grid-template-columns: 1fr; } /* Full width cards */
-
       .card-image { height: 200px; }
-
       .form-grid { grid-template-columns: 1fr; } /* Stack form inputs */
-
       
-
       /* Landing adjustments */
-
       #landing-logo { width: 120px; height: 120px; }
-
       .tagline { margin-bottom: 2rem; }
-
       
-
       /* Better confirmation links */
-
       .calendar-links { width: 100%; }
-
     }
-
     
-
     @media (min-width: 1025px) {
-
         .card-action-label { opacity: 0; transform: translateX(-10px); transition: 0.3s; }
-
         .selectable-card:hover { transform: translateY(-8px); border-color: var(--brand-green); box-shadow: 0 10px 30px -10px rgba(0, 210, 133, 0.2); }
-
         .selectable-card:hover .card-action-label { opacity: 1; transform: translateX(0); }
-
         #show-services-btn:hover { transform: translateY(-5px) scale(1.02); background: #fff; box-shadow: 0 20px 40px rgba(255, 255, 255, 0.2); }
-
         .date-nav:hover:not(:disabled) { border-color: var(--brand-green); color: var(--brand-green); }
-
         .time-slot:hover:not(:disabled) { background: var(--brand-green); color: #000; border-color: var(--brand-green); transform: scale(1.05); }
-
         .btn-submit:hover:not(:disabled) { background: var(--brand-green); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0, 210, 133, 0.2); }
-
         .calendar-links { flex-direction: row; justify-content: center; }
-
         .calendar-links a { width: auto; padding: 1rem 2rem; }
-
         .calendar-links a:hover { background: var(--brand-green); color: #000; }
-
     }
-
   </style>
-
 </head>
-
 <body>
 
-
-
 <div id="landing-page">
-
   <img id="landing-logo" src="https://i.imgur.com/NYpAfjc.jpeg" alt="Shop Logo"/>
-
   <h1>Elite Kreative Cutz and Spa</h1>
-
   <p class="tagline">"Where Tradition Meets Tomorrow’s Precision”</p>
-
   
-
   <div id="landing-contact-info" class="contact-info-container">
-
     <a id="landing-phone-link" href="tel:18683702371">
-
       <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/></svg>
-
       <span id="landing-phone-text"></span>
-
     </a>
-
     <a id="landing-email-link" href="mailto:elitekreativecutz@gmail.com">
-
       <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" /></svg>
-
       <span id="landing-email-text"></span>
-
     </a>
-
   </div>
-
-
 
   <button id="show-services-btn">
-
     <span id="btn-text">Book Appointment</span>
-
   </button>
-
 </div>
-
-
 
 <div id="booking-app" class="hidden">
-
   <header class="universal-header">
-
     <div class="logo-container">
-
       <img id="main-logo" src="https://i.imgur.com/NYpAfjc.jpeg" alt="Shop Logo"/>
-
       <h2 id="shop-name-title" class="main-title">Elite Kreative Cutz and Spa</h2>
-
     </div>
-
     <div id="contact-info" class="contact-info-container" style="margin:0;">
-
       <a id="phone-link" href="tel:18683702371">
-
         <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.62,10.79C8.06,13.62 10.38,15.94 13.21,17.38L15.41,15.18C15.69,14.9 16.08,14.82 16.43,14.93C17.55,15.3 18.75,15.5 20,15.5A1,1 0 0,1 21,16.5V20A1,1 0 0,1 20,21A17,17 0 0,1 3,4A1,1 0 0,1 4,3H7.5A1,1 0 0,1 8.5,4C8.5,5.25 8.7,6.45 9.07,7.57C9.18,7.92 9.1,8.31 8.82,8.59L6.62,10.79Z"/></svg>
-
         <span id="phone-text"></span>
-
       </a>
-
       <a id="email-link" href="mailto:elitekreativecutz@gmail.com">
-
         <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z" /></svg>
-
         <span id="email-text"></span>
-
       </a>
-
     </div>
-
   </header>
 
-
-
   <div class="booking-dashboard">
-
     <main class="steps-panel">
-
       <div id="loader" class="loader"></div>
-
       
-
       <section id="services-step" class="booking-step hidden">
-
         <div class="step-header">
-
           <h3>Select Service</h3>
-
           <p>Choose your premium treatment.</p>
-
         </div>
-
         <div id="category-tabs" class="category-tabs"></div>
-
         <div id="service-list" class="card-grid"></div>
-
       </section>
-
-
 
       <section id="barbers-step" class="booking-step hidden">
-
         <div class="step-header">
-
           <button class="btn-back">← Go Back</button>
-
           <h3>Select Professional</h3>
-
           <p>Who should perform your service?</p>
-
         </div>
-
         <div id="barber-list" class="card-grid"></div>
-
       </section>
-
-
 
       <section id="time-step" class="booking-step hidden">
-
         <div class="step-header">
-
           <button class="btn-back">← Go Back</button>
-
           <h3>Availability</h3>
-
           <p>Select a date and time slot.</p>
-
         </div>
-
         <div class="date-selector">
-
           <button id="prev-day" class="date-nav">&lt; Prev</button>
-
           <span id="current-date"></span>
-
           <button id="next-day" class="date-nav">Next &gt;</button>
-
         </div>
-
         <div id="time-slots"></div>
-
         <p id="time-slot-message" class="error-message hidden"></p>
-
       </section>
-
-
 
       <section id="details-step" class="booking-step hidden">
-
         <div class="step-header">
-
           <button class="btn-back">← Go Back</button>
-
           <h3>Your Details</h3>
-
           <p>We need a few details to secure your booking.</p>
-
         </div>
-
         <form id="customer-form">
-
           <div class="form-grid">
-
             <div class="form-group"><label for="customer-name">Full Name</label><input type="text" id="customer-name" required placeholder="John Doe"></div>
-
             <div class="form-group"><label for="customer-email">Email (Optional)</label><input type="email" id="customer-email" placeholder="john@example.com"></div>
-
             <div class="form-group"><label for="customer-contact">Contact Number</label><input type="tel" id="customer-contact" required placeholder="(555) 000-0000"></div>
-
           </div>
-
           <button type="submit" id="submit-booking" class="btn-submit">Proceed to Review</button>
-
         </form>
-
       </section>
-
-
 
       <section id="review-step" class="booking-step hidden">
-
         <div class="step-header">
-
           <button class="btn-back">← Go Back</button>
-
           <h3>Review Booking</h3>
-
           <p>Please double check your details.</p>
-
         </div>
-
         <div id="review-summary">
-
           <p><strong>Service</strong> <span id="review-service"></span></p>
-
           <p><strong>Professional</strong> <span id="review-barber"></span></p>
-
           <p><strong>Time</strong> <span id="review-datetime"></span></p>
-
           <p><strong>Price</strong> <span id="review-price"></span></p>
-
           <p><strong>Name</strong> <span id="review-name"></span></p>
-
           <p><strong>Email</strong> <span id="review-email"></span></p>
-
           <p><strong>Contact</strong> <span id="review-contact"></span></p>
-
         </div>
-
         <button id="final-confirm-btn" class="btn-submit">Confirm Booking</button>
-
       </section>
-
-
 
       <section id="confirmation-step" class="booking-step hidden">
-
         <h3>Booking Confirmed</h3>
-
         <p>An email confirmation has been sent. See you soon!</p>
-
         <div id="add-to-calendar-links" class="calendar-links"></div>
-
       </section>
-
     </main>
 
-
-
     <aside class="summary-panel">
-
       <div id="summary-service-item" class="summary-item">
-
         <h4>Service</h4>
-
         <p id="summary-service" class="placeholder">--</p>
-
       </div>
-
       <div id="summary-barber-item" class="summary-item">
-
         <h4>Professional</h4>
-
         <p id="summary-barber" class="placeholder">--</p>
-
       </div>
-
       <div id="summary-datetime-item" class="summary-item">
-
         <h4>Time</h4>
-
         <p id="summary-datetime" class="placeholder">--</p>
-
       </div>
-
       <div id="summary-price-item" class="summary-item active">
-
         <h4>Total</h4>
-
         <p id="summary-price">$0.00</p>
-
       </div>
-
       <div id="error-container" class="error-message hidden"></div>
-
     </aside>
-
   </div>
-
 </div>
 
-
-
 <script>
-
   /* ORIGINAL LOGIC PRESERVED 
-
       No changes to functionality, only class names matched in HTML
-
   */
-
   const config = {
-
     shopName: "Elite Kreative Cutz and Spa",
-
     shopLogoURL: "https://i.imgur.com/NYpAfjc.jpeg",
-
     contactEmail: "elitekreativecutz@gmail.com",
-
     contactPhone: "1 (868) 386-7390",
-
     contactPhoneRaw: "18683867390",
-
     getDataURL: "/.netlify/functions/getBookingData",
-
     submitDataURL: "/.netlify/functions/submitBooking"
-
   };
 
-
-
   document.addEventListener('DOMContentLoaded', () => {
-
     let bookingState = { selectedDate: new Date(), selectedService: null, selectedBarber: null, selectedTime: null, customerName: '', customerEmail: '', customerContact: '', history: [] };
 
-
-
     const DOMElements = {
-
       landingPage: document.getElementById('landing-page'),
-
       bookingApp: document.getElementById('booking-app'),
-
       showServicesBtn: document.getElementById('show-services-btn'),
-
       btnText: document.getElementById('btn-text'),
-
       landingPhoneLink: document.getElementById('landing-phone-link'),
-
       landingEmailLink: document.getElementById('landing-email-link'),
-
       landingPhoneText: document.getElementById('landing-phone-text'),
-
       landingEmailText: document.getElementById('landing-email-text'),
-
       loader: document.getElementById('loader'),
-
       errorContainer: document.getElementById('error-container'),
-
       mainLogo: document.getElementById('main-logo'),
-
       shopNameTitle: document.getElementById('shop-name-title'),
-
       phoneLink: document.getElementById('phone-link'),
-
       emailLink: document.getElementById('email-link'),
-
       phoneText: document.getElementById('phone-text'),
-
       emailText: document.getElementById('email-text'),
-
       summary: { serviceItem: document.getElementById('summary-service-item'), service: document.getElementById('summary-service'), barberItem: document.getElementById('summary-barber-item'), barber: document.getElementById('summary-barber'), datetimeItem: document.getElementById('summary-datetime-item'), datetime: document.getElementById('summary-datetime'), price: document.getElementById('summary-price')},
-
       steps: { services: document.getElementById('services-step'), barbers: document.getElementById('barbers-step'), time: document.getElementById('time-step'), details: document.getElementById('details-step'), review: document.getElementById('review-step'), confirmation: document.getElementById('confirmation-step')},
-
       categoryTabs: document.getElementById('category-tabs'),
-
       serviceList: document.getElementById('service-list'),
-
       barberList: document.getElementById('barber-list'),
-
       prevDayBtn: document.getElementById('prev-day'),
-
       nextDayBtn: document.getElementById('next-day'),
-
       currentDateEl: document.getElementById('current-date'),
-
       timeSlots: document.getElementById('time-slots'),
-
       timeSlotMessage: document.getElementById('time-slot-message'),
-
       customerForm: document.getElementById('customer-form'),
-
       submitBookingBtn: document.getElementById('submit-booking'),
-
       finalConfirmBtn: document.getElementById('final-confirm-btn'),
-
       calendarLinks: document.getElementById('add-to-calendar-links'),
-
       backButtons: document.querySelectorAll('.btn-back'),
-
       review: { service: document.getElementById('review-service'), barber: document.getElementById('review-barber'), datetime: document.getElementById('review-datetime'), price: document.getElementById('review-price'), name: document.getElementById('review-name'), email: document.getElementById('review-email'), contact: document.getElementById('review-contact'),}
-
     };
-
     
-
     // --- Helper Functions ---
-
     const showError = (message) => { DOMElements.loader.classList.add('hidden'); DOMElements.errorContainer.textContent = message; DOMElements.errorContainer.classList.remove('hidden'); };
-
     const showStep = (stepToShow) => { Object.values(DOMElements.steps).forEach(step => step.classList.add('hidden')); if (stepToShow) { stepToShow.classList.remove('hidden'); if (window.innerWidth > 1200) stepToShow.scrollIntoView({ behavior: 'smooth', block: 'start' }); } };
-
     const goBack = () => { if (bookingState.history.length === 0) return; const currentStep = Object.values(DOMElements.steps).find(step => !step.classList.contains('hidden')); if (currentStep === DOMElements.steps.barbers) { bookingState = { ...bookingState, selectedService: null, selectedBarber: null, selectedTime: null }; } else if (currentStep === DOMElements.steps.time) { bookingState = { ...bookingState, selectedBarber: null, selectedTime: null }; } else if (currentStep === DOMElements.steps.details) { bookingState.selectedTime = null; } else if (currentStep === DOMElements.steps.review) { bookingState.customerName = ''; bookingState.customerEmail = ''; bookingState.customerContact = ''; } updateSummary(); const previousStep = bookingState.history.pop(); showStep(previousStep); };
-
     const updateSummary = () => { const { service, barber, datetime, price, serviceItem, barberItem, datetimeItem } = DOMElements.summary; service.textContent = '--'; service.classList.add('placeholder'); serviceItem.classList.remove('active'); barber.textContent = '--'; barber.classList.add('placeholder'); barberItem.classList.remove('active'); datetime.textContent = '--'; datetime.classList.add('placeholder'); datetimeItem.classList.remove('active'); price.textContent = `$0.00`; if (bookingState.selectedService) { service.textContent = bookingState.selectedService.Name; service.classList.remove('placeholder'); serviceItem.classList.add('active'); price.textContent = `$${Number(bookingState.selectedService.Price).toFixed(2)}`; barberItem.classList.add('active'); } if (bookingState.selectedBarber) { barber.textContent = bookingState.selectedBarber; barber.classList.remove('placeholder'); datetimeItem.classList.add('active'); } if (bookingState.selectedTime) { const dateStr = bookingState.selectedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }); const timeStr = bookingState.selectedTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }); datetime.textContent = `${dateStr} at ${timeStr}`; datetime.classList.remove('placeholder'); } };
-
     const handleServiceClick = (service) => { bookingState.history.push(DOMElements.steps.services); bookingState.selectedService = service; updateSummary(); const availableBarbers = service.BarberName; if (Array.isArray(availableBarbers) && availableBarbers.length === 1) { handleBarberClick(availableBarbers[0]); } else if (Array.isArray(availableBarbers) && availableBarbers.length > 1) { renderBarbers(availableBarbers); showStep(DOMElements.steps.barbers); } else { showError("This service has no barbers assigned."); } };
-
     const handleBarberClick = (barberName) => { bookingState.history.push(DOMElements.steps.barbers); bookingState.selectedBarber = barberName; updateSummary(); updateDateDisplay(); showStep(DOMElements.steps.time); };
-
     const handleTimeSlotClick = (time) => { bookingState.history.push(DOMElements.steps.time); bookingState.selectedTime = time; updateSummary(); showStep(DOMElements.steps.details); };
-
     const renderServices = (category, categories) => { document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active')); document.querySelector(`.category-tab[data-category="${category}"]`).classList.add('active'); DOMElements.serviceList.innerHTML = categories[category].map(service => `<div class="selectable-card service-card">${service.ImageURL ? `<div class="card-image" style="background-image: url('${service.ImageURL}')"></div>` : ''}<div class="card-content"><h3>${service.Name}</h3><p>${service.Description || ''}</p><div class="service-details"><span>${service.Duration} min</span><span class="price">$${Number(service.Price).toFixed(2)}</span></div><div class="card-action-label">Select Service →</div></div></div>`).join(''); document.querySelectorAll('.service-card').forEach((card, i) => card.addEventListener('click', () => handleServiceClick(categories[category][i]))); };
-
     const renderBarbers = (barbers) => { DOMElements.barberList.innerHTML = barbers.map(barber => `<div class="selectable-card barber-card"><div class="card-content"><h3>${barber}</h3><div class="card-action-label">Select Artist →</div></div></div>`).join(''); document.querySelectorAll('.barber-card').forEach((card, i) => card.addEventListener('click', () => handleBarberClick(barbers[i]))); };
-
     const updateDateDisplay = () => { DOMElements.currentDateEl.textContent = bookingState.selectedDate.toLocaleDateString('en-US', { weekday: 'short', month: 'long', day: 'numeric' }); const today = new Date(); today.setHours(0,0,0,0); const selectedMidnight = new Date(bookingState.selectedDate); selectedMidnight.setHours(0,0,0,0); DOMElements.prevDayBtn.disabled = (selectedMidnight <= today); generateTimeSlots(); };
-
     const generateTimeSlots = () => { DOMElements.timeSlots.innerHTML = ''; DOMElements.timeSlotMessage.classList.add('hidden'); if (!bookingState.selectedService || !bookingState.selectedBarber) return; const dayOfWeek = bookingState.selectedDate.toLocaleDateString('en-US', { weekday: 'long' }); const hours = appData.openingHours.find(h => h.Day === dayOfWeek && Array.isArray(h.BarberName) && h.BarberName.includes(bookingState.selectedBarber)); if (!hours || hours.IsClosed) { DOMElements.timeSlotMessage.textContent = `Sorry, ${bookingState.selectedBarber} is unavailable on this day.`; DOMElements.timeSlotMessage.classList.remove('hidden'); return; } const d = bookingState.selectedDate; const selectedDay = d.getDate(), selectedMonth = d.getMonth(), selectedYear = d.getFullYear(); const bookingsForDay = appData.bookings.filter(b => { if (b.BarberName !== bookingState.selectedBarber) return false; const bookingDate = new Date(b.StartTime); return bookingDate.getDate() === selectedDay && bookingDate.getMonth() === selectedMonth && bookingDate.getFullYear() === selectedYear; }); const { Duration } = bookingState.selectedService; const bufferTime = parseInt(appData.settings.bufferTime) || 0; const dayStart = new Date(bookingState.selectedDate); const [startHour, startMinute] = String(hours.StartTime).split(':'); dayStart.setHours(parseInt(startHour,10), parseInt(startMinute,10), 0, 0); const dayEnd = new Date(bookingState.selectedDate); const [endHour, endMinute] = String(hours.EndTime).split(':'); dayEnd.setHours(parseInt(endHour,10), parseInt(endMinute,10), 0, 0); let availableSlots = 0; let currentTime = new Date(dayStart); while (currentTime < dayEnd) { const slotStartTime = new Date(currentTime); const slotEndTime = new Date(slotStartTime.getTime() + (parseInt(Duration,10) || 0) * 60000); if (slotEndTime > dayEnd) break; const isPast = new Date() > slotStartTime; if (!isPast) { const isOverlapping = bookingsForDay.some(b => { const existingStart = new Date(b.StartTime); const existingEnd = new Date(b.EndTime); const bookingEndWithBuffer = new Date(existingEnd.getTime() + bufferTime * 60000); return slotStartTime < bookingEndWithBuffer && slotEndTime > existingStart; }); const slotButton = document.createElement('button'); slotButton.className = 'time-slot'; if (isOverlapping) { slotButton.disabled = true; slotButton.textContent = 'Booked'; DOMElements.timeSlots.appendChild(slotButton); } else { availableSlots++; slotButton.textContent = slotStartTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }); slotButton.addEventListener('click', () => handleTimeSlotClick(slotStartTime)); DOMElements.timeSlots.appendChild(slotButton); } } currentTime.setMinutes(currentTime.getMinutes() + 15); } if (availableSlots === 0) { DOMElements.timeSlotMessage.textContent = 'No available slots for this day.'; DOMElements.timeSlotMessage.classList.remove('hidden'); } };
 
-
-
     // --- Core Logic & Initialization ---
-
     const fetchBookingData = async () => { try { const response = await fetch(config.getDataURL); if (!response.ok) throw new Error(`Network response was not ok`); const data = await response.json(); if (data.error) throw new Error(data.error); return data; } catch (error) { console.error("Fetch Error:", error); throw new Error(`Failed to load booking data. Please try again. Details: ${error.message}`); } };
-
     const initializeBookingUI = (data) => { appData = data; appData.bookings = (appData.bookings || []).map(b => ({ ...b, StartTime: new Date(b.StartTime), EndTime: new Date(b.EndTime) })); const categories = (appData.services || []).reduce((acc, service) => { const category = service.Category || 'General'; if (!acc[category]) acc[category] = []; acc[category].push(service); return acc; }, {}); DOMElements.categoryTabs.innerHTML = Object.keys(categories).map(cat => `<div class="category-tab" data-category="${cat}">${cat}</div>`).join(''); document.querySelectorAll('.category-tab').forEach(tab => tab.addEventListener('click', () => renderServices(tab.dataset.category, categories))); if (Object.keys(categories).length > 0) { renderServices(Object.keys(categories)[0], categories); } };
-
     const populateContactInfo = () => { DOMElements.phoneLink.href = `tel:${config.contactPhoneRaw}`; DOMElements.phoneText.textContent = config.contactPhone; DOMElements.emailLink.href = `mailto:${config.contactEmail}`; DOMElements.emailText.textContent = config.contactEmail; DOMElements.landingPhoneLink.href = `tel:${config.contactPhoneRaw}`; DOMElements.landingPhoneText.textContent = config.contactPhone; DOMElements.landingEmailLink.href = `mailto:${config.contactEmail}`; DOMElements.landingEmailText.textContent = config.contactEmail; };
 
-
-
     // --- Main Execution Flow ---
-
     populateContactInfo();
-
     const dataPromise = fetchBookingData();
-
     DOMElements.showServicesBtn.addEventListener('click', async () => {
-
         DOMElements.showServicesBtn.disabled = true;
-
         const originalText = DOMElements.btnText.textContent;
-
         DOMElements.btnText.textContent = 'Loading...';
-
         const spinner = document.createElement('div');
-
         spinner.className = 'spinner';
-
         DOMElements.showServicesBtn.appendChild(spinner);
-
         try {
-
             const loadedData = await dataPromise;
-
             DOMElements.landingPage.classList.add('hidden');
-
             DOMElements.bookingApp.classList.remove('hidden');
-
             initializeBookingUI(loadedData);
-
             DOMElements.loader.classList.add('hidden');
-
             showStep(DOMElements.steps.services);
-
         } catch (error) {
-
             alert(error.message);
-
             DOMElements.showServicesBtn.disabled = false;
-
             DOMElements.btnText.textContent = originalText;
-
             if(spinner.parentNode) DOMElements.showServicesBtn.removeChild(spinner);
-
         }
-
     });
-
     DOMElements.backButtons.forEach(button => button.addEventListener('click', goBack));
-
     DOMElements.prevDayBtn.addEventListener('click', () => { bookingState.selectedDate.setDate(bookingState.selectedDate.getDate() - 1); updateDateDisplay(); });
-
     DOMElements.nextDayBtn.addEventListener('click', () => { bookingState.selectedDate.setDate(bookingState.selectedDate.getDate() + 1); updateDateDisplay(); });
-
     DOMElements.customerForm.addEventListener('submit', (e) => {
-
       e.preventDefault();
-
       bookingState.customerName = document.getElementById('customer-name').value;
-
       bookingState.customerEmail = document.getElementById('customer-email').value || 'Not provided';
-
       bookingState.customerContact = document.getElementById('customer-contact').value;
-
       const { selectedService, selectedBarber, selectedTime, selectedDate, customerName, customerEmail, customerContact } = bookingState;
-
       DOMElements.review.service.textContent = selectedService.Name;
-
       DOMElements.review.barber.textContent = selectedBarber;
-
       DOMElements.review.datetime.textContent = `${selectedDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} at ${selectedTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}`;
-
       DOMElements.review.price.textContent = `$${Number(selectedService.Price).toFixed(2)}`;
-
       DOMElements.review.name.textContent = customerName;
-
       DOMElements.review.email.textContent = customerEmail;
-
       DOMElements.review.contact.textContent = customerContact;
-
       bookingState.history.push(DOMElements.steps.details);
-
       showStep(DOMElements.steps.review);
-
     });
-
     DOMElements.finalConfirmBtn.addEventListener('click', async () => {
-
         DOMElements.finalConfirmBtn.disabled = true;
-
         DOMElements.finalConfirmBtn.textContent = 'Confirming...';
-
         const { selectedTime, selectedService, selectedBarber, customerName, customerEmail, customerContact } = bookingState;
-
         const bookingDetails = { customerName, customerEmail, customerContact, serviceName: selectedService.Name, barberName: selectedBarber, startTime: selectedTime.toISOString(), endTime: new Date(selectedTime.getTime() + selectedService.Duration * 60000).toISOString(), };
-
         try {
-
             const response = await fetch(config.submitDataURL, { method: 'POST', body: JSON.stringify(bookingDetails) });
-
             if (!response.ok) throw new Error(`Server error: ${response.statusText}`);
-
             const result = await response.json();
-
             if (result.status !== "success") { throw new Error(result.message || 'An unknown booking error occurred.'); }
-
             showStep(DOMElements.steps.confirmation);
-
             const { serviceName, barberName, startTime, endTime } = bookingDetails;
-
             const title = encodeURIComponent(`Appointment: ${serviceName} with ${barberName}`);
-
             const startISO = new Date(startTime).toISOString().replace(/[-:.]/g, '');
-
             const endISO = new Date(endTime).toISOString().replace(/[-:.]/g, '');
-
             DOMElements.calendarLinks.innerHTML = `<a href="https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startISO}/${endISO}" target="_blank" class="google">Add to Google Calendar</a><a href="https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${title}&startdt=${startTime}&enddt=${endTime}" target="_blank" class="outlook">Add to Outlook Calendar</a>`;
-
         } catch (error) {
-
             alert(`Booking Failed: ${error.message}`);
-
             DOMElements.finalConfirmBtn.disabled = false;
-
             DOMElements.finalConfirmBtn.textContent = 'Confirm Booking';
-
         }
-
     });
-
   });
-
 </script>
-
 </body>
-
 </html>
