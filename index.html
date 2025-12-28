@@ -56,14 +56,14 @@
 
     /* --- LANDING PAGE --- */
     #landing-page {
-      height: 100vh; /* Fallback */
-      height: 100dvh; /* Mobile browser fix */
+      min-height: 100vh; /* Changed to min-height to allow scrolling for Vision/Mission */
+      height: auto;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 1.5rem;
+      padding: 4rem 1.5rem; /* Increased padding */
       background: radial-gradient(circle at center, var(--bg-surface) 0%, var(--bg-body) 100%);
     }
 
@@ -147,6 +147,44 @@
     }
     .social-btn:hover { color: var(--brand-green); transform: translateY(-3px); }
     .social-btn svg { width: 100%; height: 100%; fill: currentColor; }
+
+    /* --- MISSION & VISION --- */
+    .mission-vision-container {
+      margin-top: 4rem;
+      max-width: 800px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .mv-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .mv-card:hover { background: rgba(255, 255, 255, 0.05); }
+
+    .mv-card h4 {
+      color: var(--brand-green);
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+    }
+
+    .mv-card p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      font-weight: 300;
+      margin: 0;
+    }
 
     /* --- APP LAYOUT --- */
     #booking-app {
@@ -429,6 +467,17 @@
   <button id="show-services-btn">
     <span id="btn-text">Book Appointment</span>
   </button>
+  
+  <div class="mission-vision-container">
+    <div class="mv-card">
+      <h4>Our Mission</h4>
+      <p>We blend timeless traditional barbering with tomorrow’s technology to provide precision grooming, profound spa relaxation, and a community space that inspires confidence and lasting loyalty.</p>
+    </div>
+    <div class="mv-card">
+      <h4>Our Vision</h4>
+      <p>To build a premier community hub that elevates men’s grooming and holistic well-being, setting the industry standard by honoring the timeless artistry of traditional barbering—precise classic cuts, straight-razor shaves, and meticulous craftsmanship—seamlessly fused with cutting-edge modern technology for enhanced precision, personalization, and convenience, while fostering lifelong loyalty, personal confidence, and meaningful growth.</p>
+    </div>
+  </div>
 </div>
 
 <div id="booking-app" class="hidden">
