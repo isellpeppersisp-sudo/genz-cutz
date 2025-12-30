@@ -9,7 +9,7 @@ export async function handler(event) {
   try {
     // The Google Apps Script URL is the same for GET and POST
     const GOOGLE_SCRIPT_URL = 
-      "https://script.google.com/macros/s/AKfycbyDdKJX8Wey5S49Qg1PAdGcX32s_W3dKcGawQ3DAKF2dbKItDwWShezaztyQgbQVI1O/exec"
+      "https://script.google.com/macros/s/AKfycbzqkE5jb5W54Gyu1ULSu9oeQXocTbnEtGwEW-_DJcGJHUPyEHs6dCGumJ8RFupxyr8C/exec"
     // Forward the POST request from the frontend to the Google Apps Script
     const response = await fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
